@@ -1,10 +1,12 @@
 # Lab 2: Advanced KQL, Policies, and Visualization
 
 This Lab is organised into the following 4 challenges:
-- Challenge 5: Caching and retention policies
-- Challenge 6: Control commands
-- Challenge 7: Advanced KQL operators
-- Challenge 8: Visualisation
+|Challenge | Description | Est. Time|
+|--|--|--|
+| Challenge 5| Caching and retention policies| 30 Min| 
+| Challenge 6| Control commands| 30 Min|
+| Challenge 7| Advanced KQL operators| 2 Hours|
+| Challenge 8| Visualisation| 1 Hour |
 
 
 ---
