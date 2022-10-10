@@ -29,11 +29,11 @@ All the data is always stored in the cold cache, for the duration defined in the
 #### Task 1: Change the cache policy via the Azure portal (data base level)
 Go to your Azure Data Explorer cluster resource in the Azure portal. Click on the “Databases” blade
 
-<img src="/assets/imaegs/DatabasesBlade.png" width="300">
+<img src="/assets/images/DatabasesBlade.png" width="300">
 
 Click on the database name. The database page opens. Select "Edit" from the top menu. The side pane allows you to edit the retention and caching periods (policies) of the database. Change the retention to 365 days and the cache to 31 days, and save.
 
-<img src="/assets/imaegs/EditCache.png" width="400">
+<img src="/assets/images/EditCache.png" width="400">
  
 ---
 #### Task 2: change the cache policy via commands (data base or table level) 🎓
@@ -262,7 +262,7 @@ There are multiple ways to connect ADX and PowerBI depending on the use case. Fo
 
 ---
 
-🎉 Congrats! You've completed the ADX Lab! To earn the dogotal badge, submit the KQL queries/commands of the challenges marked with 🎓: [Answer sheet - ADX Lab 3](https://forms.office.com/r/iz4cG1ngni)
+🎉 Congrats! You've completed the ADX in a Day Lab 2 challenges! To earn the digital badge, submit the KQL queries/commands of the challenges marked with 🎓: [Answer sheet - ADX in a Day Lab 2](https://forms.office.com/r/Pu1AdWBDwG)
 
 <details>
 <summary><b>Contributing</b></summary><br>
