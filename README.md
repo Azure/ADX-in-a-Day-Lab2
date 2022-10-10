@@ -3,14 +3,14 @@
 This Lab is organised into the following 4 challenges:
 |Challenge | Description | Est. Time|
 |--|--|--|
-| Challenge 5| Caching and retention policies| 30 Min| 
-| Challenge 6| Control commands| 30 Min|
-| Challenge 7| Advanced KQL operators| 2 Hours|
-| Challenge 8| Visualisation| 1 Hour |
+| [Challenge 5](https://github.com/Azure/ADX-in-a-Day-Lab2#challenge-5-caching-and-retention-policies)| Caching and retention policies| 30 Min| 
+| [Challenge 6](https://github.com/Azure/ADX-in-a-Day-Lab2#challenge-6-control-commands)| Control commands| 30 Min|
+| [Challenge 7](https://github.com/Azure/ADX-in-a-Day-Lab2#challenge-7-going-more-advanced-with-kql)| Advanced KQL operators| 2 Hours|
+| [Challenge 8](https://github.com/Azure/ADX-in-a-Day-Lab2#challenge-8-visualisation)| Visualisation| 1 Hour |
 
 
 ---
-In order to receive the "ADX In a Day" digital badge, you will need to complete the challenges marked with 🎓. Please submit the KQL queries/commands of these challenges in the following link: [Answer sheet - ADX in a Day Lab 2](https://forms.office.com/r/iz4cG1ngni)
+In order to receive the "ADX In a Day" digital badge, you will need to complete the challenges marked with 🎓. Please submit the KQL queries/commands of these challenges in the following link: [Answer sheet - ADX in a Day Lab 2](https://forms.office.com/r/Pu1AdWBDwG)
 ---
 
 ---
@@ -134,6 +134,7 @@ Hint 3: Remember to include a ";" at the end of your let statement.
 Write a query to show a timechart of the number of records, by TransportationMode. Use 10 minute bins.
 
 Expected result:
+
  ![Screen capture 1](/assets/images/chart-4.png)
 
 
@@ -261,7 +262,6 @@ There are multiple ways to connect ADX and PowerBI depending on the use case. Fo
 
 ---
 
----
 🎉 Congrats! You've completed the ADX Lab! To earn the dogotal badge, submit the KQL queries/commands of the challenges marked with 🎓: [Answer sheet - ADX Lab 3](https://forms.office.com/r/iz4cG1ngni)
 
 <details>
