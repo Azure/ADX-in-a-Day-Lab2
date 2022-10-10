@@ -1,18 +1,20 @@
 # Lab 2: Advanced KQL, Policies, and Visualization
 
 This Lab is organised into the following 4 challenges:
-- Challenge 5: Caching and retention policies
-- Challenge 6: Control commands
-- Challenge 7: Advanced KQL operators
-- Challenge 8: Visualisation
+|Challenge | Description | Est. Time|
+|--|--|--|
+| Challenge 5| Caching and retention policies| 30 Min| 
+| Challenge 6| Control commands| 30 Min|
+| Challenge 7| Advanced KQL operators| 2 Hours|
+| Challenge 8| Visualisation| 1 Hour |
 
 
 ---
-In order to receive the "ADX In a Day" digital badge, you will need to complete the challenges marked with 🎓. Please submit the KQL queries/commands of these challenges in the following link: [Answer sheet - ADX Lab 3](https://forms.office.com/r/iz4cG1ngni)
+In order to receive the "ADX In a Day" digital badge, you will need to complete the challenges marked with 🎓. Please submit the KQL queries/commands of these challenges in the following link: [Answer sheet - ADX in a Day Lab 2](https://forms.office.com/r/iz4cG1ngni)
 ---
 
 ---
-## Challenge 5: Caching and retention policies
+### Challenge 5: Caching and retention policies
 
 Among the different policies you can set to the ADX cluster, two policies are of particular importance: retention policy (retention period) and cache policy (cache period).
 First, a policy, is what’s  used to enforce and control the properties of the cluster (or the database/table.)
@@ -24,7 +26,7 @@ The **cache** policy, is the time span, in days, for which to keep recently inge
 All the data is always stored in the cold cache, for the duration defined in the retention policy. Any data whose age falls within the hot cache policy will also be stored in the hot cache. If you query data from cold cache, it’s recommended to target a small specific range in time (“point in time”) for queries to be efficient.
 
 ---
-### Task 1: Change the cache policy via the Azure portal (data base level)
+#### Task 1: Change the cache policy via the Azure portal (data base level)
 Go to your Azure Data Explorer cluster resource in the Azure portal. Click on the “Databases” blade
 
 <img src="/assets/imaegs/DatabasesBlade.png" width="300">
@@ -33,8 +35,8 @@ Click on the database name. The database page opens. Select "Edit" from the top 
 
 <img src="/assets/imaegs/EditCache.png" width="400">
  
- ---
-### Task 2: change the cache policy via commands (data base or table level) 🎓
+---
+#### Task 2: change the cache policy via commands (data base or table level) 🎓
 
 Database policies can be overridden per table using a KQL control command.
 ADX cluster and database are Azure resources. A database is a sub-resource of the cluster, so it can be edited from the portal. Tables are not considered an Azure resource, so they cannot be managed in the portal but via a KQL command.    
@@ -45,7 +47,7 @@ Alter the cache policy of the table LogisticsTelemetryManipulated to 60 days.
 [.alter table cache policy command - Azure Data Explorer | Microsoft Docs](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/management/alter-table-cache-policy-command)
 
 ---
-### Task 3: Query cold data with hot windows 
+#### Task 3: Query cold data with hot windows 
 Although querying cold data is possible, the data is queried faster when it's in local SSD (the hot cache), particularly for range queries that scan large amounts of data. 
 
 To query cold data, ADX processes a loading step that requires accessing a storage tier with much higher latency than the local disk. When the query is limited to a small time window, often called "point-in-time" queries, the amount of data to be retrieved will usually be small, and the query will complete quickly. For example, forensic analyses querying telemetry on a given day in the past fall under this category. The impact on the query duration depends on the size of data that is pulled from storage, and can be significant. 
@@ -59,11 +61,10 @@ To try out this feature, set a hot_window between datetime(2021-01-01) .. dateti
 [Use hot windows for infrequent queries over cold data in Azure Data Explorer | Microsoft Docs](https://docs.microsoft.com/en-us/azure/data-explorer/hot-windows)
 
 ---
----
-## Challenge 6: Control commands
 
----
-### Task 1: .show/diagnostic logs/Insights
+### Challenge 6: Control commands
+
+#### Task 1: .show/diagnostic logs/Insights
 Control commands are requests to the service to retrieve information that is not necessarily data in the database tables, or to modify the service state, etc. In addition, they can be used to manage Azure Data Explorer.
 The first character of the text of a request determines if the request is a control command or a query. Control commands must start with the dot (.) character, and no query may start by that character. <br><br>
 [Management (control commands) overview](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/management/)
@@ -74,7 +75,7 @@ The first character of the text of a request determines if the request is a cont
 - The '.show tables details' command returns  a set that contains the specified table or all tables in the database with a detailed summary of each table's properties.
 
 ---
-### Task 2: Use .show queries 🎓
+#### Task 2: Use .show queries 🎓
 
 Write a command to count the number queries that you run (use the User column), in the past 7 day.
 
@@ -82,7 +83,7 @@ Reference:
 [.show queries](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/management/queries)
 
 ---
-### Task 3: Use .journal commands 🎓
+#### Task 3: Use .journal commands 🎓
 
 Write a command to show the details on the materlized view that you created erlier. When did you create the materlized view? <br>
 Hint: use the 'Event' and the 'EventTimestamp' columns.
@@ -91,7 +92,7 @@ Reference:
 [.show journal](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/management/journal)
 
 ---
-### Task 4: Use .show commands 🎓
+#### Task 4: Use .show commands 🎓
 
 Write a command to count the number commands that you run (use the User column), in the past 7 day.
 
@@ -100,7 +101,7 @@ Reference:
 
 
 ---
-### Task 5: Table details and size 🎓
+#### Task 5: Table details and size 🎓
 
 Write a control command to show details on all tables in the database. How many tables are in your cluster? <br>
 What is the original size of the data, per table? What is the [extent](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/management/extents-overview) size of the data, per table <br>
@@ -110,7 +111,7 @@ Reference:
 [.show table details](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/management/show-table-details-command) and [format_bytes()](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/format-bytesfunction)
 
 ---
----
+
 ### Challenge 7: Going more advanced with KQL
 
 #### Task 1: Declaring variables 🎓
@@ -149,7 +150,7 @@ Once the map is displayed, you can click on the locations. Note that in order to
    
   Expected result:
   
-<img src="/assets/images/Challenge6-Task3-map.png" width="400">
+<img src="/assets/images/Challenge7-Task3-map.png" width="400">
 
 ---
 #### Task 4: Range 
@@ -188,7 +189,7 @@ We can use built in functions, that uses time series decomposition to forecast f
 
 This is what time series looks like:
 
-![Screen capture 1](/assets/images/Challenge6-Task4-Pic1.png)
+![Screen capture 1](/assets/images/Challenge7-Task4-Pic1.png)
 
 **Why should you use series instead of the summarize operator?**
 
@@ -221,14 +222,13 @@ The anomalies/outliers can be clearly spotted in the 'anomalies_flags' points.
   
 Expected result:
   
-<img src="/assets/images/Challenge6-Task4-anomalies.png" width="650">
+<img src="/assets/images/Challenge7-Task4-anomalies.png" width="650">
 </br></br>
 
 ---
----
 ### Challenge 8: Visualisation
 
----
+
 #### Task 1: Prepare interactive dashboards with ADX Dashboard 🎓
 
 Using the Dashboard feature of Azure Data Explorer, build a dashboard using outputs of any 5 queries (on LogisticsTelemetryHistorical table) that you have created in the previous challenges with the following improvements:
@@ -239,13 +239,13 @@ Include **filters for the dashboard** so that the queries do not need to be modi
 
 Hint 1: In the query window, explore the “Share” menu.
   
-  ![Screen capture 1](/assets/images/Challenge7-Task1-Pic1.png)
+  ![Screen capture 1](/assets/images/Challenge8-Task1-Pic1.png)
  
 - [Visualize data with the Azure Data Explorer dashboard | Microsoft Docs](https://docs.microsoft.com/en-us/azure/data-explorer/azure-data-explorer-dashboards)
 - [Parameters in Azure Data Explorer dashboards | Microsoft Docs](https://docs.microsoft.com/en-us/azure/data-explorer/dashboard-parameters)
 
-<img src="/assets/images/Challenge7-Task1-dashboard.png" width="500">
-<img src="/assets/images/Challenge7-Task1-dashboard2.png" width="500">
+<img src="/assets/images/Challenge8-Task1-dashboard.png" width="500">
+<img src="/assets/images/Challenge8-Task1-dashboard2.png" width="500">
   
 ---
 #### Task 2: Prepare management dashboard with PowerBI
