@@ -37,20 +37,6 @@ Alter the retention policy of the table LogisticsTelemetryManipulated to 60 days
 [.alter table retention policy command - Azure Data Explorer | Microsoft Docs](https://learn.microsoft.com/en-us/azure/data-explorer/kusto/management/alter-table-retention-policy-command)
 
 ---
-#### Task 2: Query cold data with hot windows 
-Although querying cold data is possible, the data is queried faster when it's in local SSD (the hot cache), particularly for range queries that scan large amounts of data. 
-
-To query cold data, ADX processes a loading step that requires accessing a storage tier with much higher latency than the local disk. When the query is limited to a small time window, often called "point-in-time" queries, the amount of data to be retrieved will usually be small, and the query will complete quickly. For example, forensic analyses querying telemetry on a given day in the past fall under this category. The impact on the query duration depends on the size of data that is pulled from storage, and can be significant. 
-
-But, if you're scanning a large amount of cold data, query performance could benefit from using the ‘hot windows’ feature, which lets you efficiently query cold data.
-
-Hot windows are part of the cache policy commands syntax and are set with the .alter policy caching command.
-
-To try out this feature, set a hot_window between datetime(2021-01-01) .. datetime(2021-02-01)
-
-[Use hot windows for infrequent queries over cold data in Azure Data Explorer | Microsoft Docs](https://docs.microsoft.com/en-us/azure/data-explorer/hot-windows)
-
----
 
 ### Challenge 6: Control commands
 
