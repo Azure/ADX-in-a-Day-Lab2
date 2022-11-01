@@ -26,39 +26,15 @@ The **cache** policy, is the time span, in days, for which to keep recently inge
 All the data is always stored in the cold cache, for the duration defined in the retention policy. Any data whose age falls within the hot cache policy will also be stored in the hot cache. If you query data from cold cache, it’s recommended to target a small specific range in time (“point in time”) for queries to be efficient.
 
 ---
-#### Task 1: Change the cache policy via the Azure portal (data base level)
-Go to your Azure Data Explorer cluster resource in the Azure portal. Click on the “Databases” blade
-
-<img src="/assets/images/DatabasesBlade.png" width="300">
-
-Click on the database name. The database page opens. Select "Edit" from the top menu. The side pane allows you to edit the retention and caching periods (policies) of the database. Change the retention to 365 days and the cache to 31 days, and save.
-
-<img src="/assets/images/EditCache.png" width="400">
- 
----
-#### Task 2: change the cache policy via commands (data base or table level) 🎓
+#### Task 1: change the retention policy via commands (data base or table level) 🎓
 
 Database policies can be overridden per table using a KQL control command.
 ADX cluster and database are Azure resources. A database is a sub-resource of the cluster, so it can be edited from the portal. Tables are not considered an Azure resource, so they cannot be managed in the portal but via a KQL command.    
-You can always use KQL commands to alter the policies of the entire Cluster/Database/tables. Table level cache policy takes precedence over database level which takes precedence over cluster level.
+You can always use KQL commands to alter the policies of the entire Cluster/Database/tables. Table level policy takes precedence over database level which takes precedence over cluster level.
 
-Alter the cache policy of the table LogisticsTelemetryManipulated to 60 days.
+Alter the retention policy of the table LogisticsTelemetryManipulated to 60 days.
 
-[.alter table cache policy command - Azure Data Explorer | Microsoft Docs](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/management/alter-table-cache-policy-command)
-
----
-#### Task 3: Query cold data with hot windows 
-Although querying cold data is possible, the data is queried faster when it's in local SSD (the hot cache), particularly for range queries that scan large amounts of data. 
-
-To query cold data, ADX processes a loading step that requires accessing a storage tier with much higher latency than the local disk. When the query is limited to a small time window, often called "point-in-time" queries, the amount of data to be retrieved will usually be small, and the query will complete quickly. For example, forensic analyses querying telemetry on a given day in the past fall under this category. The impact on the query duration depends on the size of data that is pulled from storage, and can be significant. 
-
-But, if you're scanning a large amount of cold data, query performance could benefit from using the ‘hot windows’ feature, which lets you efficiently query cold data.
-
-Hot windows are part of the cache policy commands syntax and are set with the .alter policy caching command.
-
-To try out this feature, set a hot_window between datetime(2021-01-01) .. datetime(2021-02-01)
-
-[Use hot windows for infrequent queries over cold data in Azure Data Explorer | Microsoft Docs](https://docs.microsoft.com/en-us/azure/data-explorer/hot-windows)
+[.alter table retention policy command - Azure Data Explorer | Microsoft Docs](https://learn.microsoft.com/en-us/azure/data-explorer/kusto/management/alter-table-retention-policy-command)
 
 ---
 
