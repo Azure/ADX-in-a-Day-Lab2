@@ -226,11 +226,11 @@ Hint 1: In the query window, explore the “Share” menu.
   
 ---
 #### Task 2: Prepare management dashboard with PowerBI
-Visualize the outputs of [Task 5](https://github.com/Azure/azure-kusto-microhack#task-5-get-familiar-with-the-new-table-and-create-a-piechart) and [Task 6](https://github.com/Azure/azure-kusto-microhack#task-6-datetime-operations) in Challenge 6 in PowerBI using the DirectQuery mode. 
+Visualize the outputs of any 2 queries in PowerBI using the DirectQuery mode. 
 
 Hint 1: In the query window, explore the “Share” menu.
 
-There are multiple ways to connect ADX and PowerBI depending on the use case. For this Microhack, we will use the DirectQuery method. Feel free to explore other methods on the docs.
+There are multiple ways to connect ADX and PowerBI depending on the use case. 
 
 [Visualize data using the Azure Data Explorer connector for Power BI | Microsoft Docs](https://docs.microsoft.com/en-us/azure/data-explorer/power-bi-connector)
 
