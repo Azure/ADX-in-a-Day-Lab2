@@ -12,6 +12,8 @@ This Lab is organised into the following 4 challenges:
 ---
 In order to receive the "ADX In a Day" digital badge, you will need to complete the challenges marked with 🎓. Please submit the KQL queries/commands of these challenges in the following link: [Answer sheet - ADX in a Day Lab 2](https://forms.office.com/r/Pu1AdWBDwG)
 ---
+---
+# [Go to ADX-In-A-Day Homepage](https://github.com/Azure/ADX-in-a-Day)
 
 ---
 ### Challenge 5: Caching and retention policies
@@ -227,8 +229,6 @@ Hint 1: In the query window, explore the “Share” menu.
 ---
 #### Task 2: Prepare management dashboard with PowerBI
 Visualize the outputs of any 2 queries in PowerBI using the DirectQuery mode. 
-
-Hint 1: In the query window, explore the “Share” menu.
 
 There are multiple ways to connect ADX and PowerBI depending on the use case. 
 
