@@ -241,7 +241,7 @@ LogisticsTelemetryHistorical
 ```
 
 
-Include **filters for the dashboard** so that the queries do not need to be modified if the user wants to analyze the charts with different values of a parameter. For example, users would like to analyze the charts over the last week, the last 14 days as well as the last 1 month. Users would also like to analyze the charts by different transportation modes.
+Include **filters for the dashboard** so that the queries do not need to be modified if the user wants to analyze the charts with different values of a parameter. For example, users would like to analyze the charts over the last week, the last 14 days as well as the last 1 month.
 
 Hint 1: In the query window, explore the “Share” menu.
   
@@ -251,6 +251,7 @@ Hint 1: In the query window, explore the “Share” menu.
 - [Parameters in Azure Data Explorer dashboards | Microsoft Docs](https://docs.microsoft.com/en-us/azure/data-explorer/dashboard-parameters)
 
 Note: Below is just an example dashboard
+
 <img src="/assets/images/Challenge8-Task1-dashboard.png" width="500">
 
   
