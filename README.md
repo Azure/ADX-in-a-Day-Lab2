@@ -93,7 +93,7 @@ Reference:
 ### Challenge 7: Going more advanced with KQL
 
 #### Task 1: Declaring variables 🎓
-Use a **'let'** statement to create a list of the 10 device Ids which have the highest Shock. Then, use this list in a following query to find the total average temperature of these 10 devices.
+Use a **'let'** statement to create a list of the 10 device Ids which have the highest Shock. Then, use this list in a following query to find the total average temperature of these 10 devices. Use Logistics_Telemetry_Historical(raw) table for this exercise
 
 You can use the **'let'** statement to set a variable name equal to an expression or a function.
 let statements are useful for:
@@ -111,7 +111,7 @@ Hint 3: Remember to include a ";" at the end of your let statement.
 #### Task 2: Add more fields to your timechart 🎓
 Write a query to show a timechart of the number of records, by TransportationMode. Use 10 minute bins.
 
-Expected result:
+Example result:
 
  ![Screen capture 1](/assets/images/chart-4.png)
 
@@ -127,7 +127,7 @@ Once the map is displayed, you can click on the locations. Note that in order to
 
 [render operator with scatter chart](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/renderoperator?pivots=azuredataexplorer)
    
-  Expected result:
+Example result:
   
 <img src="/assets/images/Challenge7-Task3-map.png" width="400">
 
@@ -199,7 +199,7 @@ The anomalies/outliers can be clearly spotted in the 'anomalies_flags' points.
 [make-series](https://docs.microsoft.com/en-us/azure/data-explorer/time-series-analysis) <br>
 [ADX Anomaly Detection](https://docs.microsoft.com/en-us/azure/data-explorer/anomaly-detection#time-series-anomaly-detection)
   
-Expected result:
+Example result:
   
 <img src="/assets/images/Challenge7-Task4-anomalies.png" width="650">
 </br></br>
@@ -210,9 +210,36 @@ Expected result:
 
 #### Task 1: Prepare interactive dashboards with ADX Dashboard 🎓
 
-Using the Dashboard feature of Azure Data Explorer, build a dashboard using outputs of any 5 queries (on LogisticsTelemetryHistorical table) that you have created in the previous challenges with the following improvements:
-  - Add filter on the dashboard so that the user can choose the timespan
-  - Add filter on the dashboard so that the user can choose the transportation mode
+Using the Dashboard feature of Azure Data Explorer, build a dashboard using outputs of below 3 queries (on LogisticsTelemetryHistorical table) 
+
+Query 1. Render a Timechart using following query. Observe that we used _startTime and _endTime. These 2 are parameters from TimeRange filter in ADX Dashboard which can we can filter the minimum and maximum time of our data.
+```
+LogisticsTelemetryHistorical
+| where enqueuedTime between (datetime(_startTime) .. datetime(_endTime))
+| summarize count() by bin(enqueuedTime, 10m),  TransportationMode
+```
+
+Query 2: Parameterize and render a Anomaly chart using the following Anomaly detection query. 
+```
+let min_t = (toscalar(LogisticsTelemetryHistorical | summarize min(enqueuedTime)));;
+let max_t = (toscalar(LogisticsTelemetryHistorical | summarize max(enqueuedTime)));;
+let step_interval = 10m;
+LogisticsTelemetryHistorical
+| make-series avg_shock_series=avg(Shock) on (enqueuedTime) from (min_t) to (max_t) step step_interval 
+| extend anomalies_flags = series_decompose_anomalies(avg_shock_series, 1) 
+| render anomalychart  with(anomalycolumns=anomalies_flags, title='avg shock anomalies') 
+```
+Hint:  min_t and max_t have a hardcoded datetime values. We can replace them with our TimeRange filters.
+
+Try to parameterize the following 2 queries with TimeRange filter(_startTime , _endTime) in ADX Dashboards.
+
+Query 3. Render a Piechart using the following query parameterized
+```
+LogisticsTelemetryHistorical
+| where deviceId startswith "x"
+| summarize count() by deviceId
+```
+
 
 Include **filters for the dashboard** so that the queries do not need to be modified if the user wants to analyze the charts with different values of a parameter. For example, users would like to analyze the charts over the last week, the last 14 days as well as the last 1 month. Users would also like to analyze the charts by different transportation modes.
 
@@ -223,8 +250,9 @@ Hint 1: In the query window, explore the “Share” menu.
 - [Visualize data with the Azure Data Explorer dashboard | Microsoft Docs](https://docs.microsoft.com/en-us/azure/data-explorer/azure-data-explorer-dashboards)
 - [Parameters in Azure Data Explorer dashboards | Microsoft Docs](https://docs.microsoft.com/en-us/azure/data-explorer/dashboard-parameters)
 
+Example dashboard:
 <img src="/assets/images/Challenge8-Task1-dashboard.png" width="500">
-<img src="/assets/images/Challenge8-Task1-dashboard2.png" width="500">
+
   
 ---
 #### Task 2: Prepare management dashboard with PowerBI
