@@ -250,7 +250,7 @@ Hint 1: In the query window, explore the “Share” menu.
 - [Visualize data with the Azure Data Explorer dashboard | Microsoft Docs](https://docs.microsoft.com/en-us/azure/data-explorer/azure-data-explorer-dashboards)
 - [Parameters in Azure Data Explorer dashboards | Microsoft Docs](https://docs.microsoft.com/en-us/azure/data-explorer/dashboard-parameters)
 
-Example dashboard:
+Note: Below is just an example dashboard
 <img src="/assets/images/Challenge8-Task1-dashboard.png" width="500">
 
   
