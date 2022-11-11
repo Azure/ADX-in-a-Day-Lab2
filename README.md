@@ -118,7 +118,7 @@ Example result:
 
 ---
 #### Task 3: Some geo-mapping
-Write a query to show on map the locations (based on the longitude and latitude) of 10 devices with the highest temperature from the last 90 days.
+Write a query to show on map the locations (based on the longitude and latitude) of 10 records with the highest temperature 
 <br>
 Hint 1: 'top' operator </br>
 Hint 2: render scatterchart with (kind = map)
