@@ -170,7 +170,7 @@ Logs
 Now we will use the Series_decompose function to extract the components of the Serie
 ```
 | extend (baseline, seasonal, trend, residual) = series_decompose(MySerie, -1, 'linefit')  
-| render timechart with(title='Information Message count, decomposition')| render anomalychart  with(anomalycolumns=anomalies_flags, title='avg shock anomalies') 
+| render timechart with(title='Information Message count, decomposition')
 ```
 
 **Question:** Is the count of information message bucketed by 1 minute time slice going up or down?
