@@ -93,7 +93,9 @@ Reference:
 ### Challenge 7: Going more advanced with KQL
 
 #### Task 1: Declaring variables 🎓
-Use a **'let'** statement to create a list of the 10 device Ids which have the highest Shock. Then, use this list in a following query to find the total average temperature of these 10 devices. Use Logistics_Telemetry_Historical(raw) table for this exercise
+Use a series of **'let'** statement to create a "LogType" variable and a "TimeBucket" variable. Then craft a query that performs a count of "warnings" and buckets that count on 1 minute slices
+
+**Question:** What is the warning count for the 2014-03-08T00:02:00Z time slice? 
 
 You can use the **'let'** statement to set a variable name equal to an expression or a function.
 let statements are useful for:
@@ -105,44 +107,21 @@ Hint 1: [in operator - Azure Data Explorer | Microsoft Docs](https://docs.micros
 
 Hint 2: [let - Azure Data Explorer | Microsoft Docs](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/letstatement#examples)
 
-Hint 3: Remember to include a ";" at the end of your let statement.
+Hint 3: [bin() - Azure Data Explorer | Microsoft Docs](https://learn.microsoft.com/en-us/azure/data-explorer/kusto/query/binfunction)
 
----
-#### Task 2: Add more fields to your timechart 🎓
-Write a query to show a timechart of the number of records, by TransportationMode. Use 10 minute bins.
-
-Example result:
-
- ![Screen capture 1](/assets/images/chart-4.png)
+Hint 4: Remember to include a ";" at the end of your let statement.
 
 
 ---
-#### Task 3: Some geo-mapping
-Write a query to show on map the locations (based on the longitude and latitude) of 10 records with the highest temperature 
-<br>
-Hint 1: 'top' operator </br>
-Hint 2: render scatterchart with (kind = map)
+#### Task 2: Use term search in where clauses 🎓
+Write a query that uses the "has()" command to find a specific term in a column.
 
-Once the map is displayed, you can click on the locations. Note that in order to show more details in the balloon, you need to change the render phrase to include 'series=<TempColumn>'.
+**Question:** Find the number of "Warnings" for the "CONFIGMANAGER" component where the "Message" field has a reference to the following string: "Engine000000000083".
 
-[render operator with scatter chart](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/renderoperator?pivots=azuredataexplorer)
-   
-Example result:
-  
-<img src="/assets/images/Challenge7-Task3-map.png" width="400">
+Hint 1: [Has() - Azure Data Explorer | Microsoft Docs](https://learn.microsoft.com/en-us/azure/data-explorer/kusto/query/has-operator)
 
----
-#### Task 4: Range 
-Range is a tabular operator: it generates a single-column table of values, whose values are start, start + step, ... up to and until stop.
-Run the following query and review the results:
-
-range MyNumbers from 1 to 8 step 2
-
-Range also works with dates:
-range LastWeek from ago(7d) to now() step 1d
-
-We will use the range operator as part of the time series creation in the next tasks.
-  
+Hint 2: Feel free to reuse part of your query from task 1!
+ 
 ---
 #### Machine learning with Kusto and time series analysis
 
@@ -175,34 +154,60 @@ This is what time series looks like:
 The summarize operator does not add "null bins" — rows for time bin values for which there's no corresponding row in the table. It's a good idea to "pad" the table with those bins. Advanced built in ML capabilities like anomaly detection need the data points to be consistently measured at equally spaced intervals. The **make-series** can create such a “complete” series.
 
 ---
+
+#### Task 4: Making your first time series to detect trend 
+your IT manager thinks we are generating too many Information messages, he even claims the number has been going up! Craft a query that uses one of the time series funtions to visualize the trend in a timechart.
+
+**Note:** For this task we will give you part of the answer because the Make-Serie() operator will be new for a lot of you.
+
+To generate this series, start with:
+```
+let TimeBuckets = 1m;
+Logs 
+| where Level == "Information"
+| make-series MySerie=count() on Timestamp step TimeBuckets by Level
+```
+Now we will use the Series_decompose function to extract the components of the Serie
+```
+| extend (baseline, seasonal, trend, residual) = series_decompose(MySerie, -1, 'linefit')  
+| render timechart with(title='Information Message count, decomposition')
+```
+
+**Question:** Is the count of information message bucketed by 1 minute time slice going up or down?
+
+
+Hint 1: [Time series analysis in Azure Data Explorer | Microsoft Docs ](https://learn.microsoft.com/en-us/azure/data-explorer/time-series-analysis)
+
+Hint 2: The trend of a time series is an output of the [series_decompose() - Azure Data Explorer | Microsoft Docs ](https://learn.microsoft.com/en-us/azure/data-explorer/kusto/query/series-decomposefunction) function (see below for more in depth knowledge).
+
+---
+
 #### Task 5: Anomaly detection 🎓
 Write a query to create an anomaly chart of the average shock.
 
-For this task, we will provide more instructions:
+**Note:** For this task we will give you part of the answer because the Make-Serie() operator will be new for a lot of you.
 
 To generate these series, start with:
 ```
-let min_t = (toscalar(LogisticsTelemetryHistorical | summarize min(enqueuedTime)));
-let max_t = (toscalar(LogisticsTelemetryHistorical | summarize max(enqueuedTime)));
-let step_interval = 10m;
-LogisticsTelemetryHistorical
-| make-series avg_shock_series=avg(Shock) on (enqueuedTime) from (min_t) to (max_t) step step_interval 
+let TimeBuckets = 1m;
+Logs 
+| where Level == "Warning"
+| make-series MySerie=count() on Timestamp step TimeBuckets by Level
 ```
-Now, we will use this avg_shock_series and run series_decompose_anomalies.
-This built-in function takes an expression containing a series (dynamic numerical array) as input, and extracts anomalous points with scores.
+Now we will use the Series_decompose function to extract the components of the Serie
 ```
-| extend anomalies_flags = series_decompose_anomalies(avg_shock_series, 1) 
-| render anomalychart  with(anomalycolumns=anomalies_flags, title='avg shock anomalies') 
+| extend (anomalies, score, baseline) = series_decompose_anomalies(MySerie, 1.5, -1, 'linefit')
+| render anomalychart with(anomalycolumns=anomalies, title='Warning count, anomalies') 
 ```
 The anomalies/outliers can be clearly spotted in the 'anomalies_flags' points.
+
+**Question:** Between the 08:00 hour (UTC) and 10:00 (UTC), how many anomalies are flagged?
 
 [make-series](https://docs.microsoft.com/en-us/azure/data-explorer/time-series-analysis) <br>
 [ADX Anomaly Detection](https://docs.microsoft.com/en-us/azure/data-explorer/anomaly-detection#time-series-anomaly-detection)
   
 Example result:
-  
-<img src="/assets/images/Challenge7-Task4-anomalies.png" width="650">
-</br></br>
+![Anomalies](/assets/images/Challenge7-Task4-anomalies.png) 
 
 ---
 ### Challenge 8: Visualization
