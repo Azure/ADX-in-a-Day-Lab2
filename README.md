@@ -11,6 +11,9 @@ This Lab is organised into the following 4 challenges:
 
 ---
 In order to receive the "ADX In a Day" digital badge, you will need to complete the challenges marked with 🎓. Please submit the KQL queries/commands of these challenges in the following link: [Answer sheet - ADX in a Day Lab 2](https://forms.office.com/r/Pu1AdWBDwG)
+
+<img src="/assets/images/badge.png" width="200">
+
 ---
 ---
 # [Go to ADX-In-A-Day Homepage](https://github.com/Azure/ADX-in-a-Day)
@@ -21,20 +24,20 @@ In order to receive the "ADX In a Day" digital badge, you will need to complete 
 Among the different policies you can set to the ADX cluster, two policies are of particular importance: retention policy (retention period) and cache policy (cache period).
 First, a policy, is what’s  used to enforce and control the properties of the cluster (or the database/table.)
   
-The **retention** policy is the time span, in days, for which it’s guaranteed that the data is kept available for querying. The time span is measured from the time that the records are ingested. When the period expires , the records  will not be available for querying any more. In other words, the retention policy defines the period in which the data available to query, measured since ingestion time. Notice that a large retention period may impact the cost. 
+The **retention** policy is the time span, in days, for which it’s guaranteed that the data is kept available for querying. The time span is measured from the time that the records are ingested. When the period expires , the records  will not be available for querying any more. In other words, the retention policy defines the period in which the data available to query, measured since ingestion time. Note that a large retention period may impact the cost. 
 
 The **cache** policy, is the time span, in days, for which to keep recently ingested data (which is usually the frequently queried data) available in the hot cache rather than in long term storage (this is also known as cold cache. Specifically, it is Azure blob storage). Data stored in the hot cache is actually stored in local SSD or the RAM of the machine, very close to the compute nodes. Therefore, more readily available for querying. The availability of data in hot cache improves query performance but can potentially increase the cluster cost (as more data is being stored, more VMs are required to store it). In other words, the caching policy defines the period in which data is kept in the hot cache. 
 
 All the data is always stored in the cold cache, for the duration defined in the retention policy. Any data whose age falls within the hot cache policy will also be stored in the hot cache. If you query data from cold cache, it’s recommended to target a small specific range in time (“point in time”) for queries to be efficient.
 
 ---
-#### Task 1: change the retention policy via commands (data base or table level) 🎓
+#### Task 1: change the retention policy via commands 🎓
 
 Database policies can be overridden per table using a KQL control command.
 ADX cluster and database are Azure resources. A database is a sub-resource of the cluster, so it can be edited from the portal. Tables are not considered an Azure resource, so they cannot be managed in the portal but via a KQL command.    
 You can always use KQL commands to alter the policies of the entire Cluster/Database/tables. Table level policy takes precedence over database level which takes precedence over cluster level.
 
-Alter the retention policy of the table LogisticsTelemetryManipulated to 60 days.
+Alter the retention policy of the table ingestionLogs to 180 days.
 
 [.alter table retention policy command - Azure Data Explorer | Microsoft Docs](https://learn.microsoft.com/en-us/azure/data-explorer/kusto/management/alter-table-retention-policy-command)
 
@@ -93,9 +96,11 @@ Reference:
 ### Challenge 7: Going more advanced with KQL
 
 #### Task 1: Declaring variables 🎓
-Use a series of **'let'** statement to create a "LogType" variable and a "TimeBucket" variable. Then craft a query that performs a count of "warnings" and buckets that count on 1 minute slices
+Use 2 **'let'** statements to create "LogType" and "TimeBucket" variables with following values.
+- LogType = 'Warning'
+- TimeBucket = 1m
 
-**Question:** What is the warning count for the 2014-03-08T00:02:00Z time slice? 
+Then craft a query that performs a count of "Warning" by 1 minute Timestamp buckets(bins)
 
 You can use the **'let'** statement to set a variable name equal to an expression or a function.
 let statements are useful for:
@@ -103,24 +108,25 @@ let statements are useful for:
 - Defining constants outside of the query body for readability.
 - Defining a variable once and using it multiple times within a query.
 
-Hint 1: [in operator - Azure Data Explorer | Microsoft Docs](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/in-cs-operator#subquery)
+Reference:
+[let - Azure Data Explorer | Microsoft Docs](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/letstatement#examples)
+[bin() - Azure Data Explorer | Microsoft Docs](https://learn.microsoft.com/en-us/azure/data-explorer/kusto/query/binfunction)
 
-Hint 2: [let - Azure Data Explorer | Microsoft Docs](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/letstatement#examples)
-
-Hint 3: [bin() - Azure Data Explorer | Microsoft Docs](https://learn.microsoft.com/en-us/azure/data-explorer/kusto/query/binfunction)
-
-Hint 4: Remember to include a ";" at the end of your let statement.
-
+Hint 1: Remember to include a ";" at the end of your let statement.
 
 ---
-#### Task 2: Use term search in where clauses 🎓
-Write a query that uses the "has()" command to find a specific term in a column.
+#### Task 2: Use the search operator 🎓
+Write a query to "search" for "Exception=System.Timeout" string in entire database.
 
-**Question:** Find the number of "Warnings" for the "CONFIGMANAGER" component where the "Message" field has a reference to the following string: "Engine000000000083".
+Reference:
+[Search - Azure Data Explorer | Microsoft Docs](https://learn.microsoft.com/en-us/azure/data-explorer/kusto/query/searchoperator?pivots=azuredataexplorer)
+ 
+---
+#### Task 3: Parse Key-Value pairs into separate columns 🎓
+Write a query to parse 'table' and 'format' from 'Message' column from INGESTOR_GATEWAY Component. Find out if there are any 'unknown' formats.
 
-Hint 1: [Has() - Azure Data Explorer | Microsoft Docs](https://learn.microsoft.com/en-us/azure/data-explorer/kusto/query/has-operator)
-
-Hint 2: Feel free to reuse part of your query from task 1!
+Reference:
+[parse-kv - Azure Data Explorer | Microsoft Docs](https://learn.microsoft.com/en-us/azure/data-explorer/kusto/query/parse-kv-operator)
  
 ---
 #### Machine learning with Kusto and time series analysis
@@ -145,10 +151,6 @@ Time series decomposition involves thinking of a series as a combination of 4 co
 - noise (The residual random variation in the series). 
 We can use built in functions, that uses time series decomposition to forecast future metric values and/or detect anomalous values.
 
-This is what time series looks like:
-
-![Screen capture 1](/assets/images/Challenge7-Task4-Pic1.png)
-
 **Why should you use series instead of the summarize operator?**
 
 The summarize operator does not add "null bins" — rows for time bin values for which there's no corresponding row in the table. It's a good idea to "pad" the table with those bins. Advanced built in ML capabilities like anomaly detection need the data points to be consistently measured at equally spaced intervals. The **make-series** can create such a “complete” series.
@@ -156,58 +158,57 @@ The summarize operator does not add "null bins" — rows for time bin values for
 ---
 
 #### Task 4: Making your first time series to detect trend 
-your IT manager thinks we are generating too many Information messages, he even claims the number has been going up! Craft a query that uses one of the time series funtions to visualize the trend in a timechart.
+Render a time series visual to show the count of logs by Level.
 
-**Note:** For this task we will give you part of the answer because the Make-Serie() operator will be new for a lot of you.
+**Note:** For this task we will build timechart on all raw data. Use the table 'logsRaw'.
 
-To generate this series, start with:
+Create series out of count of Information messages using 1min time bins
 ```
 let TimeBuckets = 1m;
-Logs 
-| where Level == "Information"
-| make-series MySerie=count() on Timestamp step TimeBuckets by Level
+logsRaw 
+| where Level=='Information'
+| make-series MySeries=count() on Timestamp step TimeBuckets by Level
 ```
-Now we will use the Series_decompose function to extract the components of the Serie
+Use series_decompose to find seasonality and trend over a timechart. Add the below 2 lines to above query and execute.
 ```
-| extend (baseline, seasonal, trend, residual) = series_decompose(MySerie, -1, 'linefit')  
-| render timechart with(title='Information Message count, decomposition')
+| extend (baseline, seasonal, trend, residual) = series_decompose(MySeries, -1, 'linefit')  
+| render timechart with(title='Information Logs count')
 ```
 
-**Question:** Is the count of information message bucketed by 1 minute time slice going up or down?
+Example result:
+![Anomalies](/assets/images/Challenge7-Task4-timechart.png) 
 
+Reference:
+[make-series](https://docs.microsoft.com/en-us/azure/data-explorer/time-series-analysis)
 
-Hint 1: [Time series analysis in Azure Data Explorer | Microsoft Docs ](https://learn.microsoft.com/en-us/azure/data-explorer/time-series-analysis)
+[Time series analysis in Azure Data Explorer | Microsoft Docs ](https://learn.microsoft.com/en-us/azure/data-explorer/time-series-analysis)
 
-Hint 2: The trend of a time series is an output of the [series_decompose() - Azure Data Explorer | Microsoft Docs ](https://learn.microsoft.com/en-us/azure/data-explorer/kusto/query/series-decomposefunction) function (see below for more in depth knowledge).
+[series_decompose() - Azure Data Explorer | Microsoft Docs ](https://learn.microsoft.com/en-us/azure/data-explorer/kusto/query/series-decomposefunction)
+
 
 ---
 
 #### Task 5: Anomaly detection 🎓
-Write a query to create an anomaly chart of the average shock.
+Anomaly detection lets you find outliers/anomalies in the data. Let's find out any ingestion anomalies by using the 'ingestionLogs' table for this task.
 
-**Note:** For this task we will give you part of the answer because the Make-Serie() operator will be new for a lot of you.
-
-To generate these series, start with:
+Generate a series with 10 minutes bins:
 ```
-let TimeBuckets = 1m;
-Logs 
-| where Level == "Warning"
-| make-series MySerie=count() on Timestamp step TimeBuckets by Level
+let TimeBuckets = 10m;
+ingestionLogs 
+| make-series MySeries=count() on Timestamp step TimeBuckets by Level
 ```
 Now we will use the Series_decompose function to extract the components of the Serie
 ```
-| extend (anomalies, score, baseline) = series_decompose_anomalies(MySerie, 1.5, -1, 'linefit')
-| render anomalychart with(anomalycolumns=anomalies, title='Warning count, anomalies') 
+| extend anomaly = series_decompose_anomalies(MySeries)
+| render anomalychart with(anomalycolumns=anomaly, title='Ingestion anomalies') 
 ```
-The anomalies/outliers can be clearly spotted in the 'anomalies_flags' points.
-
-**Question:** Between the 08:00 hour (UTC) and 10:00 (UTC), how many anomalies are flagged?
-
-[make-series](https://docs.microsoft.com/en-us/azure/data-explorer/time-series-analysis) <br>
-[ADX Anomaly Detection](https://docs.microsoft.com/en-us/azure/data-explorer/anomaly-detection#time-series-anomaly-detection)
+Can you spot red dots indicating outliers/anomalies i.e.,spikes in ingestion logs on the chart?
   
 Example result:
 ![Anomalies](/assets/images/Challenge7-Task4-anomalies.png) 
+
+Reference:
+[ADX Anomaly Detection](https://docs.microsoft.com/en-us/azure/data-explorer/anomaly-detection#time-series-anomaly-detection)
 
 ---
 ### Challenge 8: Visualization
@@ -215,39 +216,30 @@ Example result:
 
 #### Task 1: Prepare interactive dashboards with ADX Dashboard 🎓
 
-Using the Dashboard feature of Azure Data Explorer, build a dashboard using outputs of below 3 queries (on LogisticsTelemetryHistorical table) 
+Using the Dashboard feature of Azure Data Explorer, build a dashboard using outputs of below 3 queries (on ingestionLogs table) 
 
-Query 1. Render a Timechart using following query. Observe that we used _startTime and _endTime. These 2 are parameters from TimeRange filter in ADX Dashboard which can we can filter the minimum and maximum time of our data.
+Query 1. Render a Timechart using following query. Observe that we used _startTime and _endTime. These 2 are parameters from TimeRange filter in ADX Dashboard with which we can filter the minimum and maximum time of our data.
 ```
-LogisticsTelemetryHistorical
-| where enqueuedTime between (datetime(_startTime) .. datetime(_endTime))
-| summarize count() by bin(enqueuedTime, 10m),  TransportationMode
-```
-
-Query 2: Parameterize and render a Anomaly chart using the following Anomaly detection query. 
-```
-let min_t = (toscalar(LogisticsTelemetryHistorical | summarize min(enqueuedTime)));;
-let max_t = (toscalar(LogisticsTelemetryHistorical | summarize max(enqueuedTime)));;
-let step_interval = 10m;
-LogisticsTelemetryHistorical
-| make-series avg_shock_series=avg(Shock) on (enqueuedTime) from (min_t) to (max_t) step step_interval 
-| extend anomalies_flags = series_decompose_anomalies(avg_shock_series, 1) 
-| render anomalychart  with(anomalycolumns=anomalies_flags, title='avg shock anomalies') 
-```
-Hint:  min_t and max_t have a hardcoded datetime values. We can replace them with our TimeRange filters.
-
-Try to parameterize the following 2 queries with TimeRange filter(_startTime , _endTime) in ADX Dashboards.
-
-Query 3. Render a Piechart using the following query parameterized
-```
-LogisticsTelemetryHistorical
-| where deviceId startswith "x"
-| summarize count() by deviceId
+ingestionLogs
+| where Timestamp between (todatetime(_startTime) .. todatetime(_endTime))
+| summarize count() by bin(Timestamp, 10m), Component
 ```
 
+Query 2: Parameterize (Add Timefilter) and render a Anomaly chart using the following Anomaly detection query. 
+```
+let TimeBuckets = 10m;
+ingestionLogs 
+| make-series MySeries=count() on Timestamp step TimeBuckets by Level
+| extend anomaly = series_decompose_anomalies(MySeries)
+```
 
-Include **filters for the dashboard** so that the queries do not need to be modified if the user wants to analyze the charts with different values of a parameter. For example, users would like to analyze the charts over the last week, the last 14 days as well as the last 1 month.
+Query 3. Render a Piechart using the following query parameterized(Add Timefilter)
+```
+ingestionLogs
+| summarize count() by Level
+```
 
+You can directly add a query from query window to an existing dashboard.
 Hint 1: In the query window, explore the “Share” menu.
   
   ![Screen capture 1](/assets/images/Challenge8-Task1-Pic1.png)
