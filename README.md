@@ -19,19 +19,19 @@ In order to receive the "ADX In a Day" digital badge, you will need to complete 
 # [Go to ADX-In-A-Day Homepage](https://github.com/Azure/ADX-in-a-Day)
 
 ---
-### Challenge 5: Caching and retention policies
+### Challenge 5: Caching and Retention Policies
 
 Among the different policies you can set to the ADX cluster, two policies are of particular importance: retention policy (retention period) and cache policy (cache period).
-First, a policy, is what’s  used to enforce and control the properties of the cluster (or the database/table.)
+First, a policy is used to enforce and control the properties of the cluster (or the database/table.)
   
-The **retention** policy is the time span, in days, for which it’s guaranteed that the data is kept available for querying. The time span is measured from the time that the records are ingested. When the period expires , the records  will not be available for querying any more. In other words, the retention policy defines the period in which the data available to query, measured since ingestion time. Note that a large retention period may impact the cost. 
+The **retention** policy is the time span, in days, for which it’s guaranteed that the data is kept available for querying. The time span is measured from the time that the records are ingested. When the period expires, the records  will not be available for querying any more. In other words, the retention policy defines the period during which data is retained and available to query, measured since ingestion time. Note that a large retention period may impact the cost. 
 
-The **cache** policy, is the time span, in days, for which to keep recently ingested data (which is usually the frequently queried data) available in the hot cache rather than in long term storage (this is also known as cold cache. Specifically, it is Azure blob storage). Data stored in the hot cache is actually stored in local SSD or the RAM of the machine, very close to the compute nodes. Therefore, more readily available for querying. The availability of data in hot cache improves query performance but can potentially increase the cluster cost (as more data is being stored, more VMs are required to store it). In other words, the caching policy defines the period in which data is kept in the hot cache. 
+The **cache** policy, is the time span, in days, for which to keep recently ingested data (which is usually the frequently queried data) available in the hot cache rather than in long term storage (this is also known as cold tier. Specifically, it is Azure blob storage). Data stored in the hot cache is actually stored in local SSD or the RAM of the machine, very close to the compute nodes. Therefore, more readily available for querying. The availability of data in hot cache improves query performance but can potentially increase the cluster cost (as more data is being stored, more VMs are required to store it). In other words, the caching policy defines the period in which data is kept in the hot cache. 
 
-All the data is always stored in the cold cache, for the duration defined in the retention policy. Any data whose age falls within the hot cache policy will also be stored in the hot cache. If you query data from cold cache, it’s recommended to target a small specific range in time (“point in time”) for queries to be efficient.
+All the data is always persisted in the cold tier, for the duration defined in the retention policy. Any data whose age falls within the hot cache policy will also be stored in the hot cache. If you query data from cold cache, it’s recommended to target a small specific range in time (“point in time”) for the queries to be efficient.
 
 ---
-#### Task 1: change the retention policy via commands 🎓
+#### Task 1: Change the retention policy via commands 🎓
 
 Database policies can be overridden per table using a KQL control command.
 ADX cluster and database are Azure resources. A database is a sub-resource of the cluster, so it can be edited from the portal. Tables are not considered an Azure resource, so they cannot be managed in the portal but via a KQL command.    
@@ -66,7 +66,7 @@ Reference:
 ---
 #### Task 3: Use .journal commands 🎓
 
-Write a command to show the details on the materlized view that you created erlier. When did you create the materlized view? <br>
+Write a command to show the details of the function that you created erlier. When did you create the function? <br>
 Hint: use the 'Event' and the 'EventTimestamp' columns.
 
 Reference:
@@ -75,7 +75,7 @@ Reference:
 ---
 #### Task 4: Use .show commands 🎓
 
-Write a command to count the number commands that you run (use the User column), in the past 7 day.
+Write a command to count the number commands that you run (use the User column), in the past 4 hours.
 
 Reference:
 [.show commands](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/management/commands)
@@ -85,8 +85,9 @@ Reference:
 #### Task 5: Table details and size 🎓
 
 Write a control command to show details on all tables in the database. How many tables are in your cluster? <br>
-What is the original size of the data, per table? What is the [extent](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/management/extents-overview) size of the data, per table <br>
-Hint: | extend TotalExtentSizeInMB = format_bytes(TotalExtentSize, 0, "MB") <br>
+What is the original size of the data, per table? What is the [extent](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/management/extents-overview) size of the data, per table? Use calculated columns using 'extend' operator to show the size in GB. <br>
+
+Hint: ADX provides function to format bytes into MB or GB or TB. <br>
 
 Reference:
 [.show table details](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/management/show-table-details-command) and [format_bytes()](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/format-bytesfunction)
@@ -113,6 +114,7 @@ Reference:
 [bin() - Azure Data Explorer | Microsoft Docs](https://learn.microsoft.com/en-us/azure/data-explorer/kusto/query/binfunction)
 
 Hint 1: Remember to include a ";" at the end of your let statement.
+Hint 2: Call the variable after declaring it to see its results.
 
 ---
 #### Task 2: Use the search operator 🎓
@@ -123,7 +125,9 @@ Reference:
  
 ---
 #### Task 3: Parse Key-Value pairs into separate columns 🎓
-Write a query to parse 'table' and 'format' from 'Message' column from INGESTOR_GATEWAY Component. Find out if there are any 'unknown' formats.
+Filter the rows for INGESTOR_GATEWAY component. In the 'Message' column, there are tables and formats. Let's extract that to discover if there any unkown formats. Write a query to parse these key-value pairs of 'table=format' in the 'Message' column.
+
+Hint: Don't think about writing a REGEX. ADX can parse JSON, XML, URLs, IPv4s, and key-value pairs. 
 
 Reference:
 [parse-kv - Azure Data Explorer | Microsoft Docs](https://learn.microsoft.com/en-us/azure/data-explorer/kusto/query/parse-kv-operator)
