@@ -133,7 +133,7 @@ Reference:
 [parse-kv - Azure Data Explorer | Microsoft Docs](https://learn.microsoft.com/en-us/azure/data-explorer/kusto/query/parse-kv-operator)
  
 ---
-#### Machine learning with Kusto and time series analysis
+#### Timeseries Analytics and Machine Learning with Azure Data Explorer
 
 Many interesting use cases use machine learning algorithms and derive interesting insights from telemetry data. Often, these algorithms require a strictly structured dataset as their input. The raw log data usually doesn't match the required structure and size. We will see how we can use the make-series operator to create well curated data (time series).
 
@@ -158,6 +158,42 @@ We can use built in functions, that uses time series decomposition to forecast f
 **Why should you use series instead of the summarize operator?**
 
 The summarize operator does not add "null bins" — rows for time bin values for which there's no corresponding row in the table. It's a good idea to "pad" the table with those bins. Advanced built in ML capabilities like anomaly detection need the data points to be consistently measured at equally spaced intervals. The **make-series** can create such a “complete” series.
+
+---
+
+#### Task 4: Compare summarize and make-series 
+
+In this task, you are going to compare the output of 2 different operators within KQL. This task is divided into 2 parts. You will compare the outputs of the two outputs so preserve the outputs.
+
+#####Part 1: Calculate the average size of data ingested per hour by a particular node. Use Component as 'INGESTOR_EXECUTER' and choose one of the Nodes. File size is available in the 'Properties' column. Extract the size from the Properties column to perform arithmetic calculations on it. Render the output as a timechart
+
+Example Output:
+![Screen capture 1](/assets/images/Challenge4-Task4-Part1-Pic1.png)
+
+Hint 1: Use 'extend' operator to create a calculated/derived column
+Hint 2: Use bin() function to create time buckets of the specified duration
+Hint 3: Use 'summarize' operator to do the calculation
+
+Reference:
+[summarize operator](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/summarizeoperator)
+
+[extend operator](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/extendoperator)
+
+[bin()](https://learn.microsoft.com/en-us/azure/data-explorer/kusto/query/binfunction)
+
+#####Part 2: Calculate the average size of data ingested per hour by a particular node. Use Component as 'INGESTOR_EXECUTER' and choose one of the Nodes. File size is available in the 'Properties' column. Extract the size from the Properties column to perform arithmetic calculations on it. Render it as a timechart.
+
+Example Output:
+![Screen capture 1](/assets/images/Challenge4-Task4-Part2-Pic1.png)
+
+Hint 1: Use 'extend' operator to create a calculated/derived column
+Hint 2: Use make-series operator 
+
+Reference:
+[make-series](https://docs.microsoft.com/en-us/azure/data-explorer/time-series-analysis)
+
+[Time series analysis in Azure Data Explorer | Microsoft Docs ](https://learn.microsoft.com/en-us/azure/data-explorer/time-series-analysis)
+
 
 ---
 
