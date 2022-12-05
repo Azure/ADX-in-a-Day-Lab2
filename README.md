@@ -159,20 +159,22 @@ We can use built in functions, that uses time series decomposition to forecast f
 
 The summarize operator does not add "null bins" — rows for time bin values for which there's no corresponding row in the table. It's a good idea to "pad" the table with those bins. Advanced built in ML capabilities like anomaly detection need the data points to be consistently measured at equally spaced intervals. The **make-series** can create such a “complete” series.
 
+See the comparison in the following task.
 ---
 
-#### Task 4: Compare summarize and make-series 
+#### Task 4: Nulls are important in timeseries analysis (Compare summarize and make-series)
 
-In this task, you are going to compare the output of 2 different operators within KQL. This task is divided into 2 parts. You will compare the outputs of the two outputs so preserve the outputs.
+In this task, you are going to compare the output of 2 different operators (summarize & make-series) within KQL for the same query. This task is divided into 2 parts. You will compare the outputs of the two outputs so preserve the outputs.
 
-Part 1: Calculate the average size of data ingested per hour by a particular node. Use Component as 'INGESTOR_EXECUTER' and choose one of the Nodes. File size is available in the 'Properties' column. Extract the size from the Properties column to perform arithmetic calculations on it. Render the output as a timechart
+Part 1: Calculate the average size of data ingested per hour by the node 'Engine000000000378'. Use Component as 'INGESTOR_EXECUTER' and choose one of the Nodes. File size is available in the 'Properties' column. Extract the size from the Properties column to perform arithmetic calculations on it. Render the output as a timechart.
 
 Example Output:
 ![Screen capture 1](/assets/images/Challenge7-Task4-Part1-Pic1.png)
 
 Hint 1: Use 'extend' operator to create a calculated/derived column
-Hint 2: Use bin() function to create time buckets of the specified duration
-Hint 3: Use 'summarize' operator to do the calculation
+Hint 2: Think about the datatype of the calculated column. Use 'tolong()'.
+Hint 3: Use bin() function to create time buckets of the specified duration
+Hint 4: Use 'summarize' operator to do the calculation
 
 Reference:
 [summarize operator](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/summarizeoperator)
@@ -181,13 +183,14 @@ Reference:
 
 [bin()](https://learn.microsoft.com/en-us/azure/data-explorer/kusto/query/binfunction)
 
-Part 2: Calculate the average size of data ingested per hour by a particular node. Use Component as 'INGESTOR_EXECUTER' and choose one of the Nodes. File size is available in the 'Properties' column. Extract the size from the Properties column to perform arithmetic calculations on it. Render it as a timechart.
+Part 2: Calculate the average size of data ingested per hour by the node 'Engine000000000378'. Use Component as 'INGESTOR_EXECUTER' and choose one of the Nodes. File size is available in the 'Properties' column. Extract the size from the Properties column to perform arithmetic calculations on it. Render it as a timechart.
 
 Example Output:
 ![Screen capture 1](/assets/images/Challenge7-Task4-Part2-Pic1.png)
 
 Hint 1: Use 'extend' operator to create a calculated/derived column
-Hint 2: Use make-series operator 
+Hint 2: Think about the datatype of the calculated column. Use 'tolong()'.
+Hint 3: Use 'make-series' operator 
 
 Reference:
 [make-series](https://docs.microsoft.com/en-us/azure/data-explorer/time-series-analysis)
