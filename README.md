@@ -110,8 +110,8 @@ let statements are useful for:
 - Defining constants outside of the query body for readability.
 - Defining a variable once and using it multiple times within a query.
 
-Hint 1: Remember to include a ";" at the end of your let statement.
-Hint 2: Call the variable after declaring it to see its results.
+Hint 1: Remember to include a ";" at the end of your let statement.<br>
+Hint 2: Call the variable after declaring it to see its results.<br>
 
 Reference:
 - [let - Azure Data Explorer | Microsoft Docs](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/letstatement#examples)
@@ -180,9 +180,9 @@ Reference:
 
 Part 2: Calculate the average size of data ingested per hour by the node 'Engine000000000378'. Use Component as 'INGESTOR_EXECUTER'. File size is available in the 'Properties' column. Extract the size from the Properties column to perform arithmetic calculations on it. Render it as a timechart.
 
-Hint 1: Use 'extend' operator to create a calculated/derived column
-Hint 2: Think about the datatype of the calculated column. Use 'tolong()'.
-Hint 3: Use 'make-series' operator 
+Hint 1: Use 'extend' operator to create a calculated/derived column<br>
+Hint 2: Think about the datatype of the calculated column. Use 'tolong()'.<br>
+Hint 3: Use 'make-series' operator <br>
 
 Example Output:
 ![Screen capture 1](/assets/images/Challenge7-Task4-Part2-Pic1.png)
