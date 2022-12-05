@@ -90,7 +90,8 @@ What is the original size of the data, per table? What is the [extent](https://d
 Hint: ADX provides function to format bytes into MB or GB or TB. <br>
 
 Reference:
-[.show table details](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/management/show-table-details-command) and [format_bytes()](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/format-bytesfunction)
+- [.show table details](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/management/show-table-details-command)
+- [format_bytes()](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/format-bytesfunction)
 
 ---
 
@@ -109,12 +110,12 @@ let statements are useful for:
 - Defining constants outside of the query body for readability.
 - Defining a variable once and using it multiple times within a query.
 
-Reference:
-[let - Azure Data Explorer | Microsoft Docs](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/letstatement#examples)
-[bin() - Azure Data Explorer | Microsoft Docs](https://learn.microsoft.com/en-us/azure/data-explorer/kusto/query/binfunction)
-
 Hint 1: Remember to include a ";" at the end of your let statement.
 Hint 2: Call the variable after declaring it to see its results.
+
+Reference:
+- [let - Azure Data Explorer | Microsoft Docs](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/letstatement#examples)
+- [bin() - Azure Data Explorer | Microsoft Docs](https://learn.microsoft.com/en-us/azure/data-explorer/kusto/query/binfunction)
 
 ---
 #### Task 2: Use the search operator 🎓
@@ -155,12 +156,6 @@ Time series decomposition involves thinking of a series as a combination of 4 co
 - noise (The residual random variation in the series). 
 We can use built in functions, that uses time series decomposition to forecast future metric values and/or detect anomalous values.
 
-**Why should you use series instead of the summarize operator?**
-
-The summarize operator does not add "null bins" — rows for time bin values for which there's no corresponding row in the table. It's a good idea to "pad" the table with those bins. Advanced built in ML capabilities like anomaly detection need the data points to be consistently measured at equally spaced intervals. The **make-series** can create such a “complete” series.
-
-See the comparison in the following task.
-
 ---
 
 #### Task 4: Nulls are important in timeseries analysis (Compare summarize and make-series)
@@ -178,31 +173,30 @@ Example Output:
 ![Screen capture 1](/assets/images/Challenge7-Task4-Part1-Pic1.png)
 
 Reference:
-[summarize operator](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/summarizeoperator)
-
-[extend operator](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/extendoperator)
-
-[bin()](https://learn.microsoft.com/en-us/azure/data-explorer/kusto/query/binfunction)
-
-[tolong()](https://learn.microsoft.com/en-us/azure/data-explorer/kusto/query/tolongfunction)
+- [summarize operator](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/summarizeoperator)
+- [extend operator](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/extendoperator)
+- [bin()](https://learn.microsoft.com/en-us/azure/data-explorer/kusto/query/binfunction)
+- [tolong()](https://learn.microsoft.com/en-us/azure/data-explorer/kusto/query/tolongfunction)
 
 Part 2: Calculate the average size of data ingested per hour by the node 'Engine000000000378'. Use Component as 'INGESTOR_EXECUTER'. File size is available in the 'Properties' column. Extract the size from the Properties column to perform arithmetic calculations on it. Render it as a timechart.
-
-Example Output:
-![Screen capture 1](/assets/images/Challenge7-Task4-Part2-Pic1.png)
 
 Hint 1: Use 'extend' operator to create a calculated/derived column
 Hint 2: Think about the datatype of the calculated column. Use 'tolong()'.
 Hint 3: Use 'make-series' operator 
 
+Example Output:
+![Screen capture 1](/assets/images/Challenge7-Task4-Part2-Pic1.png)
+
+
+**Why should you use make-series instead of the summarize operator?**
+
+The summarize operator does not add "null bins" — rows for time bin values for which there's no corresponding row in the table. It's a good idea to "pad" the table with those bins. Advanced built in ML capabilities like anomaly detection need the data points to be consistently measured at equally spaced intervals. The **make-series** can create such a “complete” series.
+
 Reference:
-[extend operator](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/extendoperator)
-
-[tolong()](https://learn.microsoft.com/en-us/azure/data-explorer/kusto/query/tolongfunction)
-
-[make-series](https://docs.microsoft.com/en-us/azure/data-explorer/time-series-analysis)
-
-[Time series analysis in Azure Data Explorer | Microsoft Docs ](https://learn.microsoft.com/en-us/azure/data-explorer/time-series-analysis)
+- [extend operator](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/extendoperator)
+- [tolong()](https://learn.microsoft.com/en-us/azure/data-explorer/kusto/query/tolongfunction)
+- [make-series](https://docs.microsoft.com/en-us/azure/data-explorer/time-series-analysis)
+- [Time series analysis in Azure Data Explorer | Microsoft Docs ](https://learn.microsoft.com/en-us/azure/data-explorer/time-series-analysis)
 
 ---
 
@@ -261,7 +255,8 @@ You can directly add a query from query window to an existing dashboard.
 Hint 1: In the query window, explore the “Share” menu.
   
   ![Screen capture 1](/assets/images/Challenge8-Task1-Pic1.png)
- 
+
+Reference:
 - [Visualize data with the Azure Data Explorer dashboard | Microsoft Docs](https://docs.microsoft.com/en-us/azure/data-explorer/azure-data-explorer-dashboards)
 - [Parameters in Azure Data Explorer dashboards | Microsoft Docs](https://docs.microsoft.com/en-us/azure/data-explorer/dashboard-parameters)
 
@@ -276,9 +271,9 @@ Visualize the outputs of any 2 queries in PowerBI using the DirectQuery mode.
 
 There are multiple ways to connect ADX and PowerBI depending on the use case. 
 
-[Visualize data using the Azure Data Explorer connector for Power BI | Microsoft Docs](https://docs.microsoft.com/en-us/azure/data-explorer/power-bi-connector)
-
-[Visualize data using a query imported into Power BI | Microsoft Docs](https://docs.microsoft.com/en-us/azure/data-explorer/power-bi-imported-query)
+Reference:
+- [Visualize data using the Azure Data Explorer connector for Power BI | Microsoft Docs](https://docs.microsoft.com/en-us/azure/data-explorer/power-bi-connector)
+- [Visualize data using a query imported into Power BI | Microsoft Docs](https://docs.microsoft.com/en-us/azure/data-explorer/power-bi-imported-query)
 
 ---
 
