@@ -164,12 +164,9 @@ In this task, you are going to compare the output of 2 different operators (summ
 
 Part 1: Calculate the average size of data ingested per hour by the node 'Engine000000000378'. Use Component as 'INGESTOR_EXECUTER'. File size is available in the 'Properties' column. Extract the size from the Properties column to perform arithmetic calculations on it. Render the output as a timechart.
 
-Hint 1: Use 'extend' operator to create a calculated/derived column
-
-Hint 2: Think about the datatype of the calculated column. Use 'tolong()'.
-
-Hint 3: Use bin() function to create time buckets of the specified duration
-
+Hint 1: Use 'extend' operator to create a calculated/derived column <br>
+Hint 2: Think about the datatype of the calculated column. Use 'tolong()'.<br>
+Hint 3: Use bin() function to create time buckets of the specified duration<br>
 Hint 4: Use 'summarize' operator to do the calculation
 
 Example Output:
