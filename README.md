@@ -31,7 +31,7 @@ The **cache** policy, is the time span, in days, for which to keep recently inge
 All the data is always persisted in the cold tier, for the duration defined in the retention policy. Any data whose age falls within the hot cache policy will also be stored in the hot cache. If you query data from cold cache, it’s recommended to target a small specific range in time (“point in time”) for the queries to be efficient.
 
 ---
-#### Task 1: Change the retention policy via commands 🎓
+#### Challenge 5, Task 1: Change the retention policy via commands 🎓
 
 Database policies can be overridden per table using a KQL control command.
 ADX cluster and database are Azure resources. A database is a sub-resource of the cluster, so it can be edited from the portal. Tables are not considered an Azure resource, so they cannot be managed in the portal but via a KQL command.    
@@ -45,7 +45,7 @@ Alter the retention policy of the table ingestionLogs to 180 days.
 
 ### Challenge 6: Control commands
 
-#### Task 1: .show/diagnostic logs/Insights
+#### Challenge 6, Task 1: .show/diagnostic logs/Insights
 Control commands are requests to the service to retrieve information that is not necessarily data in the database tables, or to modify the service state, etc. In addition, they can be used to manage Azure Data Explorer.
 The first character of the text of a request determines if the request is a control command or a query. Control commands must start with the dot (.) character, and no query may start by that character. <br><br>
 [Management (control commands) overview](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/management/)
@@ -56,7 +56,7 @@ The first character of the text of a request determines if the request is a cont
 - The '.show tables details' command returns  a set that contains the specified table or all tables in the database with a detailed summary of each table's properties.
 
 ---
-#### Task 2: Use .show queries 🎓
+#### Challenge 6, Task 2: Use .show queries 🎓
 
 Write a command to count the number queries that you run (use the User column), in the past 7 day.
 
@@ -64,7 +64,7 @@ Reference:
 [.show queries](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/management/queries)
 
 ---
-#### Task 3: Use .journal commands 🎓
+#### Challenge 6, Task 3: Use .journal commands 🎓
 
 Write a command to show the details of the function that you created erlier. When did you create the function? <br>
 Hint: use the 'Event' and the 'EventTimestamp' columns.
@@ -73,7 +73,7 @@ Reference:
 [.show journal](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/management/journal)
 
 ---
-#### Task 4: Use .show commands 🎓
+#### Challenge 6, Task 4: Use .show commands 🎓
 
 Write a command to count the number commands that you run (use the User column), in the past 4 hours.
 
@@ -82,7 +82,7 @@ Reference:
 
 
 ---
-#### Task 5: Table details and size 🎓
+#### Challenge 6, Task 5: Table details and size 🎓
 
 Write a control command to show details on all tables in the database. How many tables are in your cluster? <br>
 What is the original size of the data, per table? What is the [extent](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/management/extents-overview) size of the data, per table? Use calculated columns using 'extend' operator to show the size in GB. <br>
@@ -97,7 +97,7 @@ Reference:
 
 ### Challenge 7: Going more advanced with KQL
 
-#### Task 1: Declaring variables 🎓
+#### Challenge 7, Task 1: Declaring variables 🎓
 Use 2 **'let'** statements to create "LogType" and "TimeBucket" variables with following values.
 - LogType = 'Warning'
 - TimeBucket = 1m
@@ -118,14 +118,14 @@ Reference:
 - [bin() - Azure Data Explorer | Microsoft Docs](https://learn.microsoft.com/en-us/azure/data-explorer/kusto/query/binfunction)
 
 ---
-#### Task 2: Use the search operator 🎓
+#### Challenge 7, Task 2: Use the search operator 🎓
 Write a query to "search" for "Exception=System.Timeout" string in entire database.
 
 Reference:
 [Search - Azure Data Explorer | Microsoft Docs](https://learn.microsoft.com/en-us/azure/data-explorer/kusto/query/searchoperator?pivots=azuredataexplorer)
  
 ---
-#### Task 3: Parse Key-Value pairs into separate columns 🎓
+#### Challenge 7, Task 3: Parse Key-Value pairs into separate columns 🎓
 Filter the rows for INGESTOR_GATEWAY component. In the 'Message' column, there are tables and formats. Let's extract that to discover if there any unkown formats. Write a query to parse these key-value pairs of 'table=format' in the 'Message' column.
 
 Hint: Don't think about writing a REGEX. ADX can parse JSON, XML, URLs, IPv4s, and key-value pairs. 
@@ -158,7 +158,7 @@ We can use built in functions, that uses time series decomposition to forecast f
 
 ---
 
-#### Task 4: Nulls are important in timeseries analysis (Compare summarize and make-series)
+#### Challenge 7, Task 4: Nulls are important in timeseries analysis (Compare summarize and make-series)
 
 In this task, you are going to compare the output of 2 different operators (summarize & make-series) within KQL for the same query. This task is divided into 2 parts. You will compare the outputs of these 2 parts.
 
@@ -200,7 +200,7 @@ Reference:
 
 ---
 
-#### Task 5: Anomaly detection 🎓
+#### Challenge 7, Task 5: Anomaly detection 🎓
 Anomaly detection lets you find outliers/anomalies in the data. Let's find out any ingestion anomalies by using the 'ingestionLogs' table for this task.
 
 Generate a series with 10 minutes bins:
@@ -226,7 +226,7 @@ Reference:
 ### Challenge 8: Visualization
 
 
-#### Task 1: Prepare interactive dashboards with ADX Dashboard 🎓
+#### Challenge 8, Task 1: Prepare interactive dashboards with ADX Dashboard 🎓
 
 Using the Dashboard feature of Azure Data Explorer, build a dashboard using outputs of below 3 queries (on ingestionLogs table) 
 
@@ -266,7 +266,7 @@ Note: Below is just an example dashboard
 
   
 ---
-#### Task 2: Prepare management dashboard with PowerBI
+#### Challenge 8, Task 2: Prepare management dashboard with PowerBI
 Visualize the outputs of any 2 queries in PowerBI using the DirectQuery mode. 
 
 There are multiple ways to connect ADX and PowerBI depending on the use case. 
