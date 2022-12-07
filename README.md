@@ -204,12 +204,13 @@ Reference:
 Anomaly detection lets you find outliers/anomalies in the data. Let's find out any ingestion anomalies by using 10 minutes bins on the 'ingestionLogs' table for this task.
 Can you spot red dots indicating outliers/anomalies i.e.,spikes in ingestion logs on the chart?
 
-Hint: Use series_decompose_anomalies to render anomaly chart
-Example result:
+Hint: Use series_decompose_anomalies to render anomaly chart<br>
+Example result:<br>
 ![Anomalies](/assets/images/Challenge7-Task4-anomalies.png) 
 
 Reference:
 [ADX Anomaly Detection](https://docs.microsoft.com/en-us/azure/data-explorer/anomaly-detection#time-series-anomaly-detection)
+[Anomaly Detection Function](https://learn.microsoft.com/en-us/azure/data-explorer/kusto/query/series-decompose-anomaliesfunction)
 
 ---
 ### Challenge 8: Visualization
