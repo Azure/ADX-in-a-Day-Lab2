@@ -254,7 +254,7 @@ Note: Below is just an example dashboard
 
   
 --- 
-### Up for more challenge?
+### Up for more challenges?
 #### Challenge 9: Prepare management dashboard with PowerBI
 Visualize the outputs of any 2 queries in PowerBI using the DirectQuery mode. 
 
@@ -266,12 +266,12 @@ Reference:
 
 ---
 ### Continue your learning journey!
-#### Learn and get hands on experience with a full blown ADX cluster and advanced ADX topics like Materialized Views, scaling, security, geo mapping and more. 
+#### - Learn and get hands on experience with a full blown ADX cluster and advanced ADX topics like Materialized Views, scaling, security, geo mapping and more. 
 [Azure Data Explorer Microhack](https://github.com/Azure/azure-kusto-microhack)
 
 <img src="/assets/images/microhack_badge.png" width="200">
 
-#### Become a detective and solve some puzzles using Kusto Query Langugage!
+#### - Become a detective and solve some puzzles using Kusto Query Langugage!
 [Kusto Detective Agency](https://detective.kusto.io)
 
 <img src="/assets/images/kda_badge.png" width="200">
