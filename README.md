@@ -201,21 +201,10 @@ Reference:
 ---
 
 #### Challenge 7, Task 5: Anomaly detection 🎓
-Anomaly detection lets you find outliers/anomalies in the data. Let's find out any ingestion anomalies by using the 'ingestionLogs' table for this task.
-
-Generate a series with 10 minutes bins:
-```
-let TimeBuckets = 10m;
-ingestionLogs 
-| make-series MySeries=count() on Timestamp step TimeBuckets by Level
-```
-Now we will use the Series_decompose function to extract the components of the Serie
-```
-| extend anomaly = series_decompose_anomalies(MySeries)
-| render anomalychart with(anomalycolumns=anomaly, title='Ingestion anomalies') 
-```
+Anomaly detection lets you find outliers/anomalies in the data. Let's find out any ingestion anomalies by using 10 minutes bins on the 'ingestionLogs' table for this task.
 Can you spot red dots indicating outliers/anomalies i.e.,spikes in ingestion logs on the chart?
-  
+
+Hint: Use series_decompose_anomalies to render anomaly chart
 Example result:
 ![Anomalies](/assets/images/Challenge7-Task4-anomalies.png) 
 
@@ -224,7 +213,6 @@ Reference:
 
 ---
 ### Challenge 8: Visualization
-
 
 #### Challenge 8, Task 1: Prepare interactive dashboards with ADX Dashboard 🎓
 
@@ -265,8 +253,9 @@ Note: Below is just an example dashboard
 <img src="/assets/images/Challenge8-Task1-dashboard.png" width="500">
 
   
----
-#### Challenge 8, Task 2: Prepare management dashboard with PowerBI
+--- 
+### Interested to learn more?
+#### Challenge 9: Prepare management dashboard with PowerBI
 Visualize the outputs of any 2 queries in PowerBI using the DirectQuery mode. 
 
 There are multiple ways to connect ADX and PowerBI depending on the use case. 
