@@ -233,7 +233,7 @@ ingestionLogs
 | extend anomaly = series_decompose_anomalies(MySeries)
 ```
 
-Query 3. Render a Piechart using the following query parameterized(Add Timefilter)
+Query 3: Parameterized(Add Timefilter) and render a Piechart using the following query 
 ```
 ingestionLogs
 | summarize count() by Level
@@ -254,7 +254,7 @@ Note: Below is just an example dashboard
 
   
 --- 
-### Interested to learn more?
+### Up for more challenge?
 #### Challenge 9: Prepare management dashboard with PowerBI
 Visualize the outputs of any 2 queries in PowerBI using the DirectQuery mode. 
 
@@ -264,6 +264,17 @@ Reference:
 - [Visualize data using the Azure Data Explorer connector for Power BI | Microsoft Docs](https://docs.microsoft.com/en-us/azure/data-explorer/power-bi-connector)
 - [Visualize data using a query imported into Power BI | Microsoft Docs](https://docs.microsoft.com/en-us/azure/data-explorer/power-bi-imported-query)
 
+---
+### Continue your learning journey!
+#### Learn and get hands on experience with a full blown ADX cluster and advanced ADX topics like Materialized Views, scaling, security, geo mapping and more. 
+[Azure Data Explorer Microhack](https://github.com/Azure/azure-kusto-microhack)
+
+<img src="/assets/images/microhack_badge.png" width="200">
+
+#### Become a detective and solve some puzzles using Kusto Query Langugage!
+[Kusto Detective Agency](https://detective.kusto.io)
+
+<img src="/assets/images/kda_badge.png" width="200">
 ---
 
 🎉 Congrats! You've completed the ADX in a Day Lab 2 challenges! To earn the digital badge, submit the KQL queries/commands of the challenges marked with 🎓: [Answer sheet - ADX in a Day Lab 2](https://forms.office.com/r/Pu1AdWBDwG)
