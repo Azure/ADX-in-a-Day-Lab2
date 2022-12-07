@@ -219,7 +219,7 @@ Reference:
 
 Using the Dashboard feature of Azure Data Explorer, build a dashboard using outputs of below 3 queries (on ingestionLogs table) 
 
-Query 1. Render a Timechart using following query. Observe that we used _startTime and _endTime. These 2 are parameters from TimeRange filter in ADX Dashboard with which we can filter the minimum and maximum time of our data.
+Query 1: Render a Timechart using following query. Observe that we used _startTime and _endTime. These 2 are parameters from TimeRange filter in ADX Dashboard with which we can filter the minimum and maximum time of our data.
 ```
 ingestionLogs
 | where Timestamp between (todatetime(_startTime) .. todatetime(_endTime))
