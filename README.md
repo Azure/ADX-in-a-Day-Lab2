@@ -5,12 +5,12 @@ This Lab is organised into the following 4 challenges:
 |--|--|--|
 | [Challenge 5](https://github.com/Azure/ADX-in-a-Day-Lab2#challenge-5-caching-and-retention-policies)| Caching and retention policies| 30 Min| 
 | [Challenge 6](https://github.com/Azure/ADX-in-a-Day-Lab2#challenge-6-control-commands)| Control commands| 30 Min|
-| [Challenge 7](https://github.com/Azure/ADX-in-a-Day-Lab2#challenge-7-going-more-advanced-with-kql)| Advanced KQL operators| 1 Hour|
-| [Challenge 8](https://github.com/Azure/ADX-in-a-Day-Lab2#challenge-8-visualization)| Visualization| 1 Hour |
+| [Challenge 7](https://github.com/Azure/ADX-in-a-Day-Lab2#challenge-7-going-more-advanced-with-kql)| Advanced KQL operators| 45 Min|
+| [Challenge 8](https://github.com/Azure/ADX-in-a-Day-Lab2#challenge-8-visualization)| Visualization| 45 Min |
 
 
 ---
-In order to receive the "ADX In a Day" digital badge, you will need to complete the challenges marked with 🎓. Please submit the KQL queries/commands of these challenges in the following link: [Answer sheet - ADX in a Day Lab 2](https://forms.office.com/r/Pu1AdWBDwG)
+In order to receive the "ADX In a Day" digital badge, you will need to complete the challenges marked with 🎓. **Please submit the KQL queries/commands of these challenges in the following link**: [Answer sheet - ADX in a Day Lab 2](https://forms.office.com/r/Pu1AdWBDwG)
 
 <img src="/assets/images/badge.png" width="200">
 
