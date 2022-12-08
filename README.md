@@ -278,7 +278,7 @@ Reference:
 <img src="/assets/images/kda_badge.png" width="200">
 ---
 
-🎉 Congrats! You've completed the ADX in a Day Lab 2 challenges! To earn the digital badge, submit the KQL queries/commands of the challenges marked with 🎓: [Answer sheet - ADX in a Day Lab 2](https://forms.office.com/r/Pu1AdWBDwG)
+🎉 Congrats! You've completed the ADX in a Day Lab 2 challenges! To earn the digital badge, submit the KQL queries/commands of the challenges marked with 🎓: [Answer sheet - ADX in a Day Lab 2](https://forms.office.com/r/J38XTAx09Q)
 
 <details>
 <summary><b>Contributing</b></summary><br>
