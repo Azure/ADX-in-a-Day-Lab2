@@ -272,7 +272,7 @@ Reference:
 
 <img src="/assets/images/microhack_badge.png" width="200">
 
-#### - Become a detective and solve some puzzles using Kusto Query Langugage!
+#### - Become a detective and solve some puzzles using Kusto Query Langugage! You can reuse the same free cluster that you have used to complete ADX-in-a-Day challenges.
 [Kusto Detective Agency](https://detective.kusto.io)
 
 <img src="/assets/images/kda_badge.png" width="200">
