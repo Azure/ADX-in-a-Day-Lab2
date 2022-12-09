@@ -66,7 +66,7 @@ Reference:
 ---
 #### Challenge 6, Task 3: Use .journal commands 🎓
 
-Write a command to show the details of the function that you created erlier. When did you create the function? <br>
+Write a command to show the details of the function that you created earlier. When did you create the function? <br>
 Hint: use the 'Event' and the 'EventTimestamp' columns.
 
 Reference:
