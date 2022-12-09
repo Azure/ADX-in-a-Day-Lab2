@@ -126,7 +126,7 @@ Reference:
  
 ---
 #### Challenge 7, Task 3: Parse Key-Value pairs into separate columns 🎓
-Filter the rows for INGESTOR_GATEWAY component. In the 'Message' column, there are tables and formats. Let's extract that to discover if there any unkown formats. Write a query to parse these key-value pairs of 'table=format' in the 'Message' column.
+Filter the rows for INGESTOR_GATEWAY component. In the 'Message' column, there are tables and formats. Let's extract that to discover if there any unknown formats. Write a query to parse these key-value pairs of 'table=format' in the 'Message' column.
 
 Hint: Don't think about writing a REGEX. ADX can parse JSON, XML, URLs, IPv4s, and key-value pairs. 
 
