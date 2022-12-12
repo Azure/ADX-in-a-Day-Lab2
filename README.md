@@ -226,7 +226,7 @@ ingestionLogs
 | summarize count() by bin(Timestamp, 10m), Component
 ```
 
-Query 2: Parameterize (Add Timefilter) and render a Anomaly chart using the following Anomaly detection query. 
+Query 2: Parameterize (Add Timefilter) and render an Anomaly chart using the following Anomaly detection query. The chart should show values between 2014-03-08T07:00:00 and 2014-03-08T12:00:00.
 ```
 let TimeBuckets = 10m;
 ingestionLogs 
