@@ -126,7 +126,7 @@ Reference:
  
 ---
 #### Challenge 7, Task 3: Parse Key-Value pairs into separate columns 🎓
-Filter the rows for INGESTOR_GATEWAY component. In the 'Message' column, there are tables and formats. Let's extract that to discover if there any unknown formats. Write a query to parse these key-value pairs of 'table=format' in the 'Message' column.
+Filter the rows for INGESTOR_GATEWAY component. In the 'Message' column, there are tables and formats. Let's extract that to discover if there any unknown formats. Write a query to parse these key-value pairs in the 'Message' column into 2 columns- table and format.
 
 Hint: Don't think about writing a REGEX. ADX can parse JSON, XML, URLs, IPv4s, and key-value pairs. 
 
@@ -162,7 +162,7 @@ We can use built in functions, that uses time series decomposition to forecast f
 
 In this task, you are going to compare the output of 2 different operators (summarize & make-series) within KQL for the same query. This task is divided into 2 parts. You will compare the outputs of these 2 parts.
 
-Part 1: Calculate the average size of data ingested per hour by the node 'Engine000000000378'. Use Component as 'INGESTOR_EXECUTER'. File size is available in the 'Properties' column. Extract the size from the Properties column to perform arithmetic calculations on it. Render the output as a timechart.
+Part 1: Calculate the average size of data ingested per 30 min by the node 'Engine000000000378'. Use Component as 'INGESTOR_EXECUTER'. File size is available in the 'Properties' column. Render the output as a timechart.
 
 Hint 1: Use 'extend' operator to create a calculated/derived column <br>
 Hint 2: Think about the datatype of the calculated column. Use 'tolong()'.<br>
@@ -178,7 +178,7 @@ Reference:
 - [bin()](https://learn.microsoft.com/en-us/azure/data-explorer/kusto/query/binfunction)
 - [tolong()](https://learn.microsoft.com/en-us/azure/data-explorer/kusto/query/tolongfunction)
 
-Part 2: Calculate the average size of data ingested per hour by the node 'Engine000000000378'. Use Component as 'INGESTOR_EXECUTER'. File size is available in the 'Properties' column. Extract the size from the Properties column to perform arithmetic calculations on it. Render it as a timechart.
+Part 2: Calculate the average size of data ingested per 30 min by the node 'Engine000000000378'. Use Component as 'INGESTOR_EXECUTER'. File size is available in the 'Properties' column. Render it as a timechart.
 
 Hint 1: Use 'extend' operator to create a calculated/derived column<br>
 Hint 2: Think about the datatype of the calculated column. Use 'tolong()'.<br>
