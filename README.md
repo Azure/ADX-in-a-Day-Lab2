@@ -195,7 +195,7 @@ The summarize operator does not add "null bins" — rows for time bin values for
 Reference:
 - [extend operator](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/extendoperator)
 - [tolong()](https://learn.microsoft.com/en-us/azure/data-explorer/kusto/query/tolongfunction)
-- [make-series](https://docs.microsoft.com/en-us/azure/data-explorer/time-series-analysis)
+- [make-series](https://learn.microsoft.com/en-us/azure/data-explorer/kusto/query/make-seriesoperator)
 - [Time series analysis in Azure Data Explorer | Microsoft Docs ](https://learn.microsoft.com/en-us/azure/data-explorer/time-series-analysis)
 
 ---
