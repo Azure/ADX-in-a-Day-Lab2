@@ -197,7 +197,7 @@ The summarize operator does not add "null bins" — rows for time bin values for
 Reference:
 - [extend operator](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/extendoperator)
 - [tolong()](https://learn.microsoft.com/en-us/azure/data-explorer/kusto/query/tolongfunction)
-- [make-series](https://docs.microsoft.com/en-us/azure/data-explorer/time-series-analysis)
+- [make-series](https://learn.microsoft.com/en-us/azure/data-explorer/kusto/query/make-seriesoperator)
 - [Time series analysis in Azure Data Explorer | Microsoft Docs ](https://learn.microsoft.com/en-us/azure/data-explorer/time-series-analysis)
 
 ---
@@ -219,7 +219,8 @@ Reference:
 
 #### Challenge 8, Task 1: Prepare interactive dashboards with ADX Dashboard 🎓
 
-Using the Dashboard feature of Azure Data Explorer, build a dashboard using outputs of below 3 queries (on ingestionLogs table) 
+Using the Dashboard feature of Azure Data Explorer, build a dashboard using outputs of below 3 queries (on ingestionLogs table)
+Paste the 3 queries with parameters in the answer sheet.
 
 Query 1: Render a Timechart using following query. Observe that we used _startTime and _endTime. These 2 are parameters from TimeRange filter in ADX Dashboard with which we can filter the minimum and maximum time of our data.
 ```
