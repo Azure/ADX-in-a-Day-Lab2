@@ -84,8 +84,8 @@ Reference:
 ---
 #### Challenge 6, Task 5: Table details and size 🎓
 
-Write a control command to show details on all tables in the database. How many tables are in your cluster? <br>
-What is the original size of the data, per table? What is the [extent](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/management/extents-overview) size of the data, per table? Use calculated columns using 'extend' operator to show the size in GB. <br>
+Write a control command to show following details on all tables in the database.
+- Use calculated columns using 'extend' operator to show the [extent](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/management/extents-overview) size of the data, per table size in GB. <br>
 
 Hint: ADX provides function to format bytes into MB or GB or TB. <br>
 
@@ -96,6 +96,8 @@ Reference:
 ---
 
 ### Challenge 7: Going more advanced with KQL
+
+** Use ingestionLogs table for the following tasks.
 
 #### Challenge 7, Task 1: Declaring variables 🎓
 Use 2 **'let'** statements to create "LogType" and "TimeBucket" variables with following values.
