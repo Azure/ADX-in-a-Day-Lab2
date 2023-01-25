@@ -219,7 +219,7 @@ Reference:
 
 #### Challenge 8, Task 1: Prepare interactive dashboards with ADX Dashboard 🎓
 
-Using the Dashboard feature of Azure Data Explorer, build a dashboard using outputs of below 3 queries (on ingestionLogs table)
+Using the Dashboard feature of Azure Data Explorer, build a dashboard using outputs of below 3 queries (on ingestionLogs table).
 Paste the 3 queries with parameters in the answer sheet.
 
 Query 1: Render a Timechart using following query. Observe that we used _startTime and _endTime. These 2 are parameters from TimeRange filter in ADX Dashboard with which we can filter the minimum and maximum time of our data.
@@ -254,7 +254,7 @@ Reference:
 
 Note: Below is just an example dashboard
 
-<img src="/assets/images/Challenge8-Task1-dashboard.png" width="500">
+<img src="/assets/images/Challenge8-Task1-dashboard.png" width="800">
 
   
 --- 
