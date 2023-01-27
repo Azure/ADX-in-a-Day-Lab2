@@ -129,13 +129,19 @@ Reference:
 [search operator](https://learn.microsoft.com/en-us/azure/data-explorer/kusto/query/searchoperator?pivots=azuredataexplorer)
  
 ---
-#### Challenge 7, Task 3: Parse Key-Value pairs into separate columns 🎓
-Filter the rows for INGESTOR_GATEWAY component. In the 'Message' column, there are tables and formats. Let's extract that to discover if there any unknown formats. Write a query to parse these key-value pairs in the 'Message' column into 2 columns- table and format.
-
-Hint: Don't think about writing a REGEX. ADX can parse JSON, XML, URLs, IPv4s, and key-value pairs. 
+#### Challenge 7, Task 3: Parse Key-Value pairs strings into separate columns 🎓
+As part of an incident investigation, you need to look at the INGESTOR_GATEWAY records (Component == 'INGESTOR_GATEWAY').
+You need to use the _Message_ column, which contains the message of the trace, represented the information in a key/value form.
+An example of a typical message would be:
+```
+$$IngestionCommand table=scaleEvents format=json
+```
+You want to analyze all the message strings, by extracting the _Message_ text into 2 calculated separate columns: table and format. 
+Let's extract that to discover the number of records per format (_summarize count() by format_). <br> 
+Hint: Don't think about writing a REGEX. ADX can parse key-value pairs, JSON, XML, URLs, and IPv4s. 
 
 Reference:
-[parse-kv - Azure Data Explorer | Microsoft Docs](https://learn.microsoft.com/en-us/azure/data-explorer/kusto/query/parse-kv-operator)
+[parse-kv](https://learn.microsoft.com/en-us/azure/data-explorer/kusto/query/parse-kv-operator)
  
 ---
 #### Timeseries Analytics and Machine Learning with Azure Data Explorer
@@ -144,8 +150,8 @@ Many interesting use cases use machine learning algorithms and derive interestin
 
 Then, we can use built in functions like [series_decompose_anomalies](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/series-decompose-anomaliesfunction). Anomalies/ outliers will be detected by the Kusto service and highlighted as red dots on the time series chart.
 
-**Time series:**
-What is a time series?
+**Time series - What is it?**
+
 A time series is a collection of observations of well-defined data items obtained through repeated measurements over time and listed in time order. Most commonly, the data points are consistently measured at equally spaced intervals. For example, measuring the temperature of the room each minute of the day would comprise a time series. Data collected irregularly is not a time series.
 
 **What is time series analysis?**
@@ -153,12 +159,17 @@ A time series is a collection of observations of well-defined data items obtaine
 Time series analysis comprises methods for analyzing time series data in order to extract meaningful statistics and other characteristics of the data. Time series forecasting, for example, is the use of a model to predict future values based on previously observed values. 
 
 **What is time series decomposition?**
+
 Time series decomposition involves thinking of a series as a combination of 4 components: 
 - trends (increasing or decreasing value in the series)
 - seasonality (repeating short-term cycle in the series)
 - baseline (the predicted value of the series, which is the sum of seasonal and trend components) 
-- noise (The residual random variation in the series). 
+- noise (the residual random variation in the series). 
 We can use built in functions, that uses time series decomposition to forecast future metric values and/or detect anomalous values.
+
+**Why should you use series instead of the summarize operator?**
+The summarize operator does not add "null bins" — rows for time bin values for which there's no corresponding row in the table. It's a good idea to "pad" the table with those bins. Advanced built in ML capabilities like anomaly detection need the data points to be **consistently measured at equally spaced intervals**. <br>
+The _make-series_ operator can create such a “complete” series.
 
 ---
 
