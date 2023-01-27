@@ -87,7 +87,7 @@ Reference:
 Write a control command to show following details on all tables in the database.
 - Use calculated columns using 'extend' operator to show the [extent](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/management/extents-overview) size of the data, per table size in GB. <br>
 
-Hint: ADX provides function to format bytes into MB or GB or TB. <br>
+Hint: ADX provides function to format bytes into MB or GB or TB: format_bytes(*YourColumn*, 2) <br>
 
 Reference:
 - [.show table details](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/management/show-table-details-command)
@@ -100,31 +100,33 @@ Reference:
 ** Use ingestionLogs table for the following tasks.
 
 #### Challenge 7, Task 1: Declaring variables 🎓
+
+You can use the  **'let'** statement to set a variable name equal to an expression or a function, or to create views (a virtual, temporary, tables based on the result-set of a KQL query). <br>
+
+let statements are useful for: <br>
+- Breaking up a complex expression into multiple parts, each represented by a variable. 
+- Defining constants outside of the query body for readability. 
+- Defining a variable once and using it multiple times within a query. 
+
 Use 2 **'let'** statements to create "LogType" and "TimeBucket" variables with following values.
 - LogType = 'Warning'
 - TimeBucket = 1m
 
-Then craft a query that performs a count of "Warning" by 1 minute Timestamp buckets(bins)
-
-You can use the **'let'** statement to set a variable name equal to an expression or a function.
-let statements are useful for:
-- Breaking up a complex expression into multiple parts, each represented by a variable.
-- Defining constants outside of the query body for readability.
-- Defining a variable once and using it multiple times within a query.
+Then craft a query that performs a count of "Warning" by 1 minute Timestamp buckets (bins).
 
 Hint 1: Remember to include a ";" at the end of your let statement.<br>
 Hint 2: Call the variable after declaring it to see its results.<br>
 
 Reference:
-- [let - Azure Data Explorer | Microsoft Docs](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/letstatement#examples)
-- [bin() - Azure Data Explorer | Microsoft Docs](https://learn.microsoft.com/en-us/azure/data-explorer/kusto/query/binfunction)
+- [let](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/letstatement#examples)
+- [bin()](https://learn.microsoft.com/en-us/azure/data-explorer/kusto/query/binfunction)
 
 ---
 #### Challenge 7, Task 2: Use the search operator 🎓
-Write a query to "search" for "Exception=System.Timeout" string in entire database.
+You received an alert early in the morning regarding multiple Timeouts in your system. You want to quickly search the traces without using specific columns or table names. Write a query to "search" for "Exception=System.Timeout" string in entire database.
 
 Reference:
-[Search - Azure Data Explorer | Microsoft Docs](https://learn.microsoft.com/en-us/azure/data-explorer/kusto/query/searchoperator?pivots=azuredataexplorer)
+[search operator](https://learn.microsoft.com/en-us/azure/data-explorer/kusto/query/searchoperator?pivots=azuredataexplorer)
  
 ---
 #### Challenge 7, Task 3: Parse Key-Value pairs into separate columns 🎓
