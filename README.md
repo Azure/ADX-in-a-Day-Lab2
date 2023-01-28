@@ -130,8 +130,8 @@ Reference:
  
 ---
 #### Challenge 7, Task 3: Parse Key-Value pairs strings into separate columns 🎓
-As part of an incident investigation, you need to look at the INGESTOR_GATEWAY records (Component == 'INGESTOR_GATEWAY').
-You need to use the _Message_ column, which contains the message of the trace, represented the information in a key/value form.
+As part of an incident investigation, you need to look at the INGESTOR_GATEWAY records (Component == 'INGESTOR_GATEWAY'). <br>
+You need to use the _Message_ column, which contains the message of the trace, representing the information in a key/value form.  <br>
 An example of a typical message would be:
 ```
 $$IngestionCommand table=scaleEvents format=json
@@ -211,7 +211,7 @@ Reference:
 - [extend operator](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/extendoperator)
 - [tolong()](https://learn.microsoft.com/en-us/azure/data-explorer/kusto/query/tolongfunction)
 - [make-series](https://learn.microsoft.com/en-us/azure/data-explorer/kusto/query/make-seriesoperator)
-- [Time series analysis in Azure Data Explorer | Microsoft Docs ](https://learn.microsoft.com/en-us/azure/data-explorer/time-series-analysis)
+- [Time series analysis](https://learn.microsoft.com/en-us/azure/data-explorer/time-series-analysis)
 
 ---
 
