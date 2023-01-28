@@ -252,7 +252,7 @@ To get a tabular format of the detected anomalies, you can use the _mv-expand_ o
 logsRaw 
 | where Component == "INGESTOR_EXECUTER"
 | extend fileSize=tolong(Properties.size)
-| make-series ActualSize=sum(fileSize) on Timestamp step 5sec // Creates the time series, listed by data type
+| make-series ActualSize=sum(fileSize) on Timestamp step 5min // Creates the time series, listed by data type
 | extend(AnomalyFlags, AnomalyScore, PredictedSize) = series_decompose_anomalies(ActualSize, -1) // Scores and extracts anomalies based on the output of make-series 
 | mv-expand ActualSize to typeof(double), Timestamp to typeof(datetime), AnomalyFlags to typeof(double),AnomalyScore to typeof(double), PredictedSize to typeof(long) // Expands the array created by series_decompose_anomalies()
 | where AnomalyFlags != 0  // Returns all positive and negative deviations from expected usage
