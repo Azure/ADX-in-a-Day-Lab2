@@ -217,16 +217,16 @@ Reference:
 
 #### Challenge 7, Task 5: Anomaly detection 🎓
 Anomaly detection lets you find outliers/anomalies in the data. <br>
-Let's find out any file size anomalies by summarizing the sum of file sizes in 5-second intervals, using the 'ingestionLogs' table, filtered by INGESTOR_EXECUTER comonent only <br>
-Can you spot red dots indicating outliers/anomalies i.e.,spikes in ingestion logs on the chart?
+Let's find out any file size anomalies by summarizing the sum of file sizes in 5-minute intervals, using the 'logsRaw' table, filtered by INGESTOR_EXECUTER _Component_ only <br>
+Can you spot red dots indicating outliers/anomalies i.e.,spikes in file size on the chart?
 
 Hint: Use series_decompose_anomalies to render anomaly chart<br>
 Hint:
 ```
-ingestionLogs 
+logsRaw 
 | where Component == "INGESTOR_EXECUTER"
 | extend fileSize=tolong(Properties.size)
-| make-series count_records_series=sum(fileSize) on Timestamp step 5sec 
+| make-series records_series=sum(fileSize) on Timestamp step 5min 
 | extend ActualUsage = ..............
 | render anomalychart with(anomalycolumns =ActualUsage, title="file size anomalies")
 ```
@@ -249,14 +249,14 @@ The _series_decompose_anomalies_ function returns the following respective serie
 To get a tabular format of the detected anomalies, you can use the _mv-expand_ operator to expand the multi-value dynamic array of the anomaly detection component (AnomalyFlags, AnomalyScore, PredictedUsage) into multiple match records, and then filter by positive and negative deviations from expected usage (where AnomalyFlags != 0). <br>
  Example:
 ```
-ingestionLogs 
+logsRaw 
 | where Component == "INGESTOR_EXECUTER"
 | extend fileSize=tolong(Properties.size)
-| make-series ActualUsage=sum(fileSize) on Timestamp step 5sec // Creates the time series, listed by data type
-| extend(AnomalyFlags, AnomalyScore, PredictedUsage) = series_decompose_anomalies(ActualUsage) // Scores and extracts anomalies based on the output of make-series 
-| mv-expand ActualUsage to typeof(double), Timestamp to typeof(datetime), AnomalyFlags to typeof(double),AnomalyScore to typeof(double), PredictedUsage to typeof(long) // Expands the array created by series_decompose_anomalies()
+| make-series ActualSize=sum(fileSize) on Timestamp step 5sec // Creates the time series, listed by data type
+| extend(AnomalyFlags, AnomalyScore, PredictedSize) = series_decompose_anomalies(ActualSize, -1) // Scores and extracts anomalies based on the output of make-series 
+| mv-expand ActualSize to typeof(double), Timestamp to typeof(datetime), AnomalyFlags to typeof(double),AnomalyScore to typeof(double), PredictedSize to typeof(long) // Expands the array created by series_decompose_anomalies()
 | where AnomalyFlags != 0  // Returns all positive and negative deviations from expected usage
-| project Timestamp,ActualUsage = format_bytes(ActualUsage, 2),PredictedUsage = format_bytes(PredictedUsage, 2),AnomalyScore,AnomalyFlags // Defines which columns to return 
+| project Timestamp,ActualSize = format_bytes(ActualSize, 2),PredictedSize = format_bytes(PredictedSize, 2), AnomalyScore, AnomalyFlags // Defines which columns to return 
 | sort by abs(AnomalyScore) desc // Sorts results by anomaly score in descending ordering
 ```
 <img src="/assets/images/anomalies_table.png" width="800">
