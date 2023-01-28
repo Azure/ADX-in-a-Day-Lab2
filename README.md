@@ -232,7 +232,7 @@ ingestionLogs
 ```
 
 Example result:<br>
-<img src="/assets/images/anomalies.png" width="300">
+<img src="/assets/images/anomalies.png" width="1100">
 
 Reference:
 [ADX Anomaly Detection](https://docs.microsoft.com/en-us/azure/data-explorer/anomaly-detection#time-series-anomaly-detection)<br>
@@ -259,7 +259,7 @@ ingestionLogs // The table we’re analyzing
 | project Timestamp,ActualUsage,PredictedUsage,AnomalyScore,AnomalyFlags // Defines which columns to return 
 | sort by abs(AnomalyScore) desc // Sorts results by anomaly score in descending ordering
 ```
-<img src="/assets/images/anomalies_table.png" width="300">
+<img src="/assets/images/anomalies_table.png" width="1100">
 
 ---
 ### Challenge 8: Visualization
