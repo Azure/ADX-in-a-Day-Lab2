@@ -261,6 +261,12 @@ ingestionLogs
 ```
 <img src="/assets/images/anomalies_table.png" width="800">
 
+Looking at the query results, you can see that the query: <br>
+- Calculates an expected sum (of the file size) for each bucket.
+- Compares actual size to expected size.
+- Assigns an anomaly score to each data point, indicating the extent of the deviation of actual size from expected size.
+- Identifies positive (1) and negative (-1) anomalies.
+
 ---
 ### Challenge 8: Visualization
 
