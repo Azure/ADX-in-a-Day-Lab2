@@ -216,9 +216,20 @@ Reference:
 ---
 
 #### Challenge 7, Task 5: Anomaly detection 🎓
-Anomaly detection lets you find outliers/anomalies in the data. Let's find out any ingestion anomalies by using 10 minutes bins on the 'ingestionLogs' table for this task. Can you spot red dots indicating outliers/anomalies i.e.,spikes in ingestion logs on the chart?
+Anomaly detection lets you find outliers/anomalies in the data. <br>
+Let's find out any file size anomalies by summarizing the sum of file sizes in 5-second intervals, using the 'ingestionLogs' table, filtered by INGESTOR_EXECUTER comonent only <br>
+Can you spot red dots indicating outliers/anomalies i.e.,spikes in ingestion logs on the chart?
 
 Hint: Use series_decompose_anomalies to render anomaly chart<br>
+Hint:
+```
+ingestionLogs 
+| where Component == "INGESTOR_EXECUTER"
+| extend fileSize=tolong(Properties.size)
+| make-series count_records_series=sum(fileSize) on Timestamp step 5sec 
+| extend ActualUsage = ..............
+| render anomalychart with(anomalycolumns =ActualUsage, title="file size anomalies")
+```
 
 Example result:<br>
 ![Anomalies](/assets/images/Challenge7-Task4-anomalies.png) 
@@ -226,6 +237,28 @@ Example result:<br>
 Reference:
 [ADX Anomaly Detection](https://docs.microsoft.com/en-us/azure/data-explorer/anomaly-detection#time-series-anomaly-detection)<br>
 [Series Decompose Anomalies](https://learn.microsoft.com/en-us/azure/data-explorer/kusto/query/series-decompose-anomaliesfunction)
+
+
+**Ho to display the anomalies in a tabular format?**
+The _series_decompose_anomalies_ function returns the following respective series:
+
+- ad_flag: A three-part series containing the values (+1, -1, 0) marking up/down/no anomaly respectively
+- ad_score: Anomaly score (using Tukey's fence test. Anomaly scores above 1.5 or below -1.5 indicate a mild anomaly rise or decline respectively. Anomaly scores above 3.0 or below -3.0 indicate a strong anomaly)
+- baseline: The predicted value of the series, according to the decomposition
+
+To get a tabular format of the detected anomalies, you can use the _mv-expand_ operator to expand the multi-value dynamic array of the anomaly detection component (AnomalyFlags, AnomalyScore, PredictedUsage) into multiple match records, and then filter by positive and negative deviations from expected usage (where AnomalyFlags != 0). <br>
+ Example:
+```
+ingestionLogs // The table we’re analyzing
+| where Component == "INGESTOR_EXECUTER"
+| extend fileSize=tolong(Properties.size)
+| make-series ActualUsage=sum(fileSize) on Timestamp step 5sec // Creates the time series, listed by data type
+| extend(AnomalyFlags, AnomalyScore, PredictedUsage) = series_decompose_anomalies(ActualUsage) // Scores and extracts anomalies based on the output of make-series 
+| mv-expand ActualUsage to typeof(double), Timestamp to typeof(datetime), AnomalyFlags to typeof(double),AnomalyScore to typeof(double), PredictedUsage to typeof(long) // Expands the array created by series_decompose_anomalies()
+| where AnomalyFlags != 0  // Returns all positive and negative deviations from expected usage
+| project Timestamp,ActualUsage,PredictedUsage,AnomalyScore,AnomalyFlags // Defines which columns to return 
+| sort by abs(AnomalyScore) desc // Sorts results by anomaly score in descending ordering
+```
 
 ---
 ### Challenge 8: Visualization
