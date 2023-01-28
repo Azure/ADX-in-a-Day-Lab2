@@ -259,7 +259,7 @@ ingestionLogs
 | project Timestamp,ActualUsage = format_bytes(ActualUsage, 2),PredictedUsage = format_bytes(PredictedUsage, 2),AnomalyScore,AnomalyFlags // Defines which columns to return 
 | sort by abs(AnomalyScore) desc // Sorts results by anomaly score in descending ordering
 ```
-<img src="/assets/images/anomalies_table.png" width="980">
+<img src="/assets/images/anomalies_table.png" width="800">
 
 ---
 ### Challenge 8: Visualization
