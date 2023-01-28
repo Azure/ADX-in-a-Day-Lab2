@@ -30,7 +30,7 @@ The **retention** policy: the time span, in days, for which it’s guaranteed th
 In other words, the retention policy defines the period during which data is retained and available to query, measured since ingestion time. Note that a large retention period may impact the cost. 
 
 The **cache** policy: the time span, in days, for which to keep recently ingested data (which is usually the frequently queried data) available in the hot cache rather than in long term storage (this is also known as cold tier. Specifically, it is Azure blob storage). Data stored in the hot cache is actually stored in local SSD or the RAM of the machine, very close to the compute nodes. <br>
-Therefore, more readily available for querying. The availability of data in hot cache improves query performance but can potentially increase the cluster cost (as more data is being stored, more VMs are required to store it). In other words, the caching policy defines the period in which data is kept in the hot cache. 
+Therefore, more readily available for querying. The availability of data in the hot cache improves query performance but can potentially increase the cluster cost (as more data is being stored, more VMs are required to store it). In other words, the caching policy defines the period during which data is kept in the hot cache. 
 
 All the data is always persisted in the cold tier, for the duration defined in the retention policy. Any data whose age falls within the hot cache policy will also be stored in the hot cache. If you query data from cold cache, it’s recommended to target a small specific range in time (“point in time”) for the queries to be efficient.
 
@@ -51,20 +51,20 @@ Alter the retention policy of the table ingestionLogs to 180 days.
 
 #### Challenge 6, Task 1: .show/diagnostic logs/Insights
 Control commands are requests to the service to retrieve information that is not necessarily data in the database tables, or to modify the service state, etc. In addition, they can be used to manage Azure Data Explorer.
-The first character of the KQL text determines if the request is a control command or a query. Control commands must start with the dot (.) character, and no query may start by that character. <br><br>
+The first character of the KQL text determines if the request is a control command or a query. Control commands must start with the dot (.) character, and no query may start with that character. <br><br>
 [Management (control commands) overview](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/management/)
 
 - The _‘.show queries’_ command returns a list of queries that have reached a final state, and that the user invoking the command has access to see.
-- The _‘.show commands'_ command returns a table of the admin commands that have reached a final state.  The TotalCpu columns  is the value of the total CPU clock time (User mode + Kernel mode) consumed by this command.
+- The _‘.show commands'_ command returns a table of the admin commands that have reached a final state.  The TotalCpu column is the value of the total CPU clock time (User mode + Kernel mode) consumed by this command.
 - The _'.show journal'_ command returns a table that contains information about metadata operations that are done on the Azure Data Explorer database. The metadata operations can result from a control command that a user executed, or internal control commands that the system executed, such as drop extents by retention
 - The '.show tables details' command returns  a set that contains the specified table or all tables in the database with a detailed summary of each table's properties.
 
 ---
 #### Challenge 6, Task 2: Use .show queries 🎓
 
-As part of an incident investigation, you to find out how many queries were executed in the past 3 hours.
+As part of an incident investigation, you need to find out how many queries were executed in the past 3 hours.
 <br>
-Write a command to count the number queries that you run (use the User column), in the past 3 hours.
+Write a command to count the number of queries that you ran (use the _User_ column), in the past 3 hours.
 
 Reference:
 [.show queries](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/management/queries)
@@ -107,14 +107,14 @@ Reference:
 
 #### Challenge 7, Task 1: Declaring variables and using 'let' statements 🎓
 
-You can use the  **'let'** statement to set a variable name equal to an expression or a function, or to create views (a virtual, temporary, tables based on the result-set of another KQL query). <br>
+You can use the  **'let'** statement to set a variable name equal to an expression or a function, or to create views (virtual, temporary, tables based on the result-set of another KQL query). <br>
 
 let statements are useful for: <br>
 - Breaking up a complex expression into multiple parts, each represented by a variable. 
 - Defining constants outside of the query body for readability. 
 - Defining a variable once and using it multiple times within a query. 
 
-For example, you can use 2 **'let'** statements to create "LogType" and "TimeBucket" variables with following values.
+For example, you can use 2 **'let'** statements to create "LogType" and "TimeBucket" variables with the following values:
 - LogType = 'Warning'
 - TimeBucket = 1m
 
