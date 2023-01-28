@@ -239,7 +239,7 @@ Reference:
 [Series Decompose Anomalies](https://learn.microsoft.com/en-us/azure/data-explorer/kusto/query/series-decompose-anomaliesfunction)
 
 
-**How to display the anomalies in a tabular format?**
+**How to display the anomalies in a tabular format?**<br>
 The _series_decompose_anomalies_ function returns the following respective series:
 
 - ad_flag: A three-part series containing the values (+1, -1, 0) marking up/down/no anomaly respectively
@@ -259,7 +259,7 @@ ingestionLogs
 | project Timestamp,ActualUsage = format_bytes(ActualUsage, 2),PredictedUsage = format_bytes(PredictedUsage, 2),AnomalyScore,AnomalyFlags // Defines which columns to return 
 | sort by abs(AnomalyScore) desc // Sorts results by anomaly score in descending ordering
 ```
-<img src="/assets/images/anomalies_table.png" width="1100">
+<img src="/assets/images/anomalies_table.png" width="980">
 
 ---
 ### Challenge 8: Visualization
