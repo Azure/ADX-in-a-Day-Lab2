@@ -239,7 +239,7 @@ Reference:
 [Series Decompose Anomalies](https://learn.microsoft.com/en-us/azure/data-explorer/kusto/query/series-decompose-anomaliesfunction)
 
 
-**Ho to display the anomalies in a tabular format?**
+**How to display the anomalies in a tabular format?**
 The _series_decompose_anomalies_ function returns the following respective series:
 
 - ad_flag: A three-part series containing the values (+1, -1, 0) marking up/down/no anomaly respectively
