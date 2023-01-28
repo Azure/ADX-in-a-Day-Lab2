@@ -249,14 +249,14 @@ The _series_decompose_anomalies_ function returns the following respective serie
 To get a tabular format of the detected anomalies, you can use the _mv-expand_ operator to expand the multi-value dynamic array of the anomaly detection component (AnomalyFlags, AnomalyScore, PredictedUsage) into multiple match records, and then filter by positive and negative deviations from expected usage (where AnomalyFlags != 0). <br>
  Example:
 ```
-ingestionLogs // The table we’re analyzing
+ingestionLogs 
 | where Component == "INGESTOR_EXECUTER"
 | extend fileSize=tolong(Properties.size)
 | make-series ActualUsage=sum(fileSize) on Timestamp step 5sec // Creates the time series, listed by data type
 | extend(AnomalyFlags, AnomalyScore, PredictedUsage) = series_decompose_anomalies(ActualUsage) // Scores and extracts anomalies based on the output of make-series 
 | mv-expand ActualUsage to typeof(double), Timestamp to typeof(datetime), AnomalyFlags to typeof(double),AnomalyScore to typeof(double), PredictedUsage to typeof(long) // Expands the array created by series_decompose_anomalies()
 | where AnomalyFlags != 0  // Returns all positive and negative deviations from expected usage
-| project Timestamp,ActualUsage,PredictedUsage,AnomalyScore,AnomalyFlags // Defines which columns to return 
+| project Timestamp,format_bytes(ActualUsage, 2),format_bytes(PredictedUsage, 2),AnomalyScore,AnomalyFlags // Defines which columns to return 
 | sort by abs(AnomalyScore) desc // Sorts results by anomaly score in descending ordering
 ```
 <img src="/assets/images/anomalies_table.png" width="1100">
