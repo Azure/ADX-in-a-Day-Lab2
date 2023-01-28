@@ -256,7 +256,7 @@ ingestionLogs
 | extend(AnomalyFlags, AnomalyScore, PredictedUsage) = series_decompose_anomalies(ActualUsage) // Scores and extracts anomalies based on the output of make-series 
 | mv-expand ActualUsage to typeof(double), Timestamp to typeof(datetime), AnomalyFlags to typeof(double),AnomalyScore to typeof(double), PredictedUsage to typeof(long) // Expands the array created by series_decompose_anomalies()
 | where AnomalyFlags != 0  // Returns all positive and negative deviations from expected usage
-| project Timestamp,format_bytes(ActualUsage, 2),format_bytes(PredictedUsage, 2),AnomalyScore,AnomalyFlags // Defines which columns to return 
+| project Timestamp,ActualUsage = format_bytes(ActualUsage, 2),PredictedUsage = format_bytes(PredictedUsage, 2),AnomalyScore,AnomalyFlags // Defines which columns to return 
 | sort by abs(AnomalyScore) desc // Sorts results by anomaly score in descending ordering
 ```
 <img src="/assets/images/anomalies_table.png" width="1100">
