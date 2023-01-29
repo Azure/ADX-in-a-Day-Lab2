@@ -312,7 +312,7 @@ ingestionLogs
 | summarize count() by bin(Timestamp, 10m), Component
 ```
 
-Query 2: Parameterize (Add Timefilter) and render an Anomaly chart using the following Anomaly detection query. The chart should show values between 2014-03-08T07:00:00 and 2014-03-08T12:00:00.
+Query 2: Parameterize (add Timefilter) and render an Anomaly chart using the following Anomaly detection query. The chart should show values between 2014-03-08T07:00:00 and 2014-03-08T12:00:00.
 ```
 let TimeBuckets = 10m;
 ingestionLogs 
@@ -320,7 +320,7 @@ ingestionLogs
 | extend anomaly = series_decompose_anomalies(MySeries)
 ```
 
-Query 3: Parameterized(Add Timefilter) and render a Piechart using the following query 
+Query 3: Parameterized (add Timefilter) and render a Piechart using the following query 
 ```
 ingestionLogs
 | summarize count() by Level
@@ -332,8 +332,8 @@ Hint 1: In the query window, explore the “Share” menu.
   ![Screen capture 1](/assets/images/Challenge8-Task1-Pic1.png)
 
 Reference:
-- [Visualize data with the Azure Data Explorer dashboard | Microsoft Docs](https://docs.microsoft.com/en-us/azure/data-explorer/azure-data-explorer-dashboards)
-- [Parameters in Azure Data Explorer dashboards | Microsoft Docs](https://docs.microsoft.com/en-us/azure/data-explorer/dashboard-parameters)
+- [Visualize data with the Azure Data Explorer dashboard](https://docs.microsoft.com/en-us/azure/data-explorer/azure-data-explorer-dashboards)
+- [Parameters in Azure Data Explorer dashboards](https://docs.microsoft.com/en-us/azure/data-explorer/dashboard-parameters)
 
 Note: Below is just an example dashboard
 
@@ -348,8 +348,8 @@ Visualize the outputs of any 2 queries in PowerBI using the DirectQuery mode.
 There are multiple ways to connect ADX and PowerBI depending on the use case. 
 
 Reference:
-- [Visualize data using the Azure Data Explorer connector for Power BI | Microsoft Docs](https://docs.microsoft.com/en-us/azure/data-explorer/power-bi-connector)
-- [Visualize data using a query imported into Power BI | Microsoft Docs](https://docs.microsoft.com/en-us/azure/data-explorer/power-bi-imported-query)
+- [Visualize data using the Azure Data Explorer connector for Power BI](https://docs.microsoft.com/en-us/azure/data-explorer/power-bi-connector)
+- [Visualize data using a query imported into Power BI](https://docs.microsoft.com/en-us/azure/data-explorer/power-bi-imported-query)
 
 ---
 ### Continue your learning journey!
@@ -362,9 +362,11 @@ Reference:
 [Kusto Detective Agency](https://detective.kusto.io)
 
 <img src="/assets/images/kda_badge.png" width="200">
+
 ---
 
-🎉 Congrats! You've completed the ADX in a Day Lab 2 challenges! To earn the digital badge, submit the KQL queries/commands of the challenges marked with 🎓: [Answer sheet - ADX in a Day Lab 2](https://forms.office.com/r/J38XTAx09Q)
+🎉 Congrats! You've completed the ADX in a Day Lab 2 challenges! <br>
+To earn the digital badge, submit the KQL queries/commands of the challenges marked with 🎓: [Answer sheet - ADX in a Day Lab 2](https://forms.office.com/r/J38XTAx09Q)
 
 <details>
 <summary><b>Contributing</b></summary><br>
