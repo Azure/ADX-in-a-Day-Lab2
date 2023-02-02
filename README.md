@@ -337,7 +337,7 @@ Reference:
 
 Note: Below is just an example dashboard
 
-<img src="/assets/images/Challenge8-Task1-dashboard.png" width="800">
+<img src="/assets/images/Challenge8-Task1-dashboard-v2.png" width="800">
 
   
 --- 
