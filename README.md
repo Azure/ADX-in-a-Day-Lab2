@@ -3,7 +3,7 @@
 This Lab is organised into the following 4 challenges:
 |Challenge | Description | Est. Time|
 |--|--|--|
-| [Challenge 5](https://github.com/Azure/ADX-in-a-Day-Lab2#challenge-5-caching-and-retention-policies)| Caching and retention policies| 30 Min| 
+| [Challenge 5](https://github.com/Azure/ADX-in-a-Day-Lab2#challenge-5-how-long-will-my-data-be-kept---caching-and-retention-policies)| Caching and retention policies| 30 Min| 
 | [Challenge 6](https://github.com/Azure/ADX-in-a-Day-Lab2#challenge-6-control-commands)| Control commands| 30 Min|
 | [Challenge 7](https://github.com/Azure/ADX-in-a-Day-Lab2#challenge-7-going-more-advanced-with-kql)| Advanced KQL operators| 45 Min|
 | [Challenge 8](https://github.com/Azure/ADX-in-a-Day-Lab2#challenge-8-visualization)| Visualization| 45 Min |
@@ -305,24 +305,35 @@ Looking at the query results, you can see that the query: <br>
 #### Challenge 8, Task 1: Prepare interactive dashboards with ADX Dashboard 🎓
 
 Using the Dashboard feature of Azure Data Explorer, build a dashboard using outputs of below 3 queries (on ingestionLogs table).
-Paste the 3 queries with parameters in the answer sheet.
 
-Query 1: Render a Timechart using following query. Observe that we used _startTime and _endTime. These 2 are parameters from TimeRange filter in ADX Dashboard with which we can filter the minimum and maximum time of our data.
+Try this! Render a Timechart using following query. Observe that we used _startTime and _endTime. These 2 are parameters from TimeRange filter in ADX Dashboard with which we can filter the minimum and maximum time of our data.
 ```
 ingestionLogs
 | where Timestamp between (todatetime(_startTime) .. todatetime(_endTime))
 | summarize count() by bin(Timestamp, 10m), Component
 ```
+- Use the above example query as reference to add Timestamp filter with _startTime and _endTime filter to queries in task 1 and task 2.
 
-Query 2: Parameterize (add Timefilter) and render an Anomaly chart using the following Anomaly detection query. The chart should show values between 2014-03-08T07:00:00 and 2014-03-08T12:00:00.
+- The following 2 tasks use the timefilter between 2014-03-08T07:00:00 and 2014-03-08T12:00:00
+
+---
+#### Challenge 8, Task 1 : Find the anomaly value
+Parameterize (add Timefilter) and render an Anomaly chart using the following Anomaly detection query. The chart should show values between 2014-03-08T07:00:00 and 2014-03-08T12:00:00.
+**Question**: What is the anomaly value(y axis) at exactly 11:30 on x axis.
+
 ```
 let TimeBuckets = 10m;
 ingestionLogs 
+| where Level == "Information"
 | make-series MySeries=count() on Timestamp step TimeBuckets by Level
 | extend anomaly = series_decompose_anomalies(MySeries)
 ```
+---
+#### Challenge 8, Task 2 : Find the warning percentage
+Parameterized (add Timefilter) and render a Piechart using the following query. The chart should show values between 2014-03-08T07:00:00 and 2014-03-08T12:00:00.
 
-Query 3: Parameterized (add Timefilter) and render a Piechart using the following query 
+**Question**: What is the warning % on the piechart?
+
 ```
 ingestionLogs
 | summarize count() by Level
