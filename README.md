@@ -302,8 +302,6 @@ Looking at the query results, you can see that the query: <br>
 ---
 ### Challenge 8: Visualization
 
-#### Challenge 8, Task 1: Prepare interactive dashboards with ADX Dashboard 🎓
-
 Using the Dashboard feature of Azure Data Explorer, build a dashboard using outputs of below 3 queries (on ingestionLogs table).
 
 Try this! Render a Timechart using following query. Observe that we used _startTime and _endTime. These 2 are parameters from TimeRange filter in ADX Dashboard with which we can filter the minimum and maximum time of our data.
@@ -317,7 +315,7 @@ ingestionLogs
 - The following 2 tasks use the timefilter between 2014-03-08T07:00:00 and 2014-03-08T12:00:00
 
 ---
-#### Challenge 8, Task 1 : Find the anomaly value
+#### Challenge 8, Task 1 : Find the anomaly value 🎓
 Parameterize (add Timefilter) and render an Anomaly chart using the following Anomaly detection query. The chart should show values between 2014-03-08T07:00:00 and 2014-03-08T12:00:00.
 **Question**: What is the anomaly value(y axis) at exactly 11:30 on x axis.
 
@@ -329,7 +327,7 @@ ingestionLogs
 | extend anomaly = series_decompose_anomalies(MySeries)
 ```
 ---
-#### Challenge 8, Task 2 : Find the warning percentage
+#### Challenge 8, Task 2 : Find the warning percentage 🎓
 Parameterized (add Timefilter) and render a Piechart using the following query. The chart should show values between 2014-03-08T07:00:00 and 2014-03-08T12:00:00.
 
 **Question**: What is the warning % on the piechart?
