@@ -304,7 +304,10 @@ Looking at the query results, you can see that the query: <br>
 
 Using the Dashboard feature of Azure Data Explorer, build a dashboard using outputs of below 3 queries (on ingestionLogs table).
 
-Try this! Render a Timechart using following query. Observe that we used _startTime and _endTime. These 2 are parameters from TimeRange filter in ADX Dashboard with which we can filter the minimum and maximum time of our data.
+When creating a dashboard in ADX, use the cluster URI of your free cluster as the data source.
+<img src="(https://github.com/Azure/ADX-in-a-Day-Lab1/raw/main/assets/images/free_cluster_create_db.png)" width="800">
+
+Try this! Create a Timechart using following query. Observe that we used _startTime and _endTime. These 2 are parameters from TimeRange filter in ADX Dashboard with which we can filter the minimum and maximum time of our data.
 ```
 ingestionLogs
 | where Timestamp between (todatetime(_startTime) .. todatetime(_endTime))
@@ -317,10 +320,10 @@ ingestionLogs
 ---
 #### Challenge 8, Task 1 : Find the anomaly value 🎓
 Parameterize (add Timefilter) and render an Anomaly chart using the following Anomaly detection query. The chart should show values between 2014-03-08T07:00:00 and 2014-03-08T12:00:00.
-**Question**: What is the anomaly value(y axis) at exactly 11:30 on x axis.
+**Question**: What is the anomaly value(y axis) at exactly 10:49 on x axis.
 
 ```
-let TimeBuckets = 10m;
+let TimeBuckets = 1m;
 ingestionLogs 
 | where Level == "Information"
 | make-series MySeries=count() on Timestamp step TimeBuckets by Level
