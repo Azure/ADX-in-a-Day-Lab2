@@ -305,9 +305,10 @@ Looking at the query results, you can see that the query: <br>
 Using the Dashboard feature of Azure Data Explorer, build a dashboard using outputs of below 3 queries (on ingestionLogs table).
 
 When creating a dashboard in ADX, use the cluster URI of your free cluster as the data source.
-<img src="(https://github.com/Azure/ADX-in-a-Day-Lab1/raw/main/assets/images/free_cluster_create_db.png)" width="800">
+<img src="/assets/images/free_cluster_uri.png" width="800">
 
-Try this! Create a Timechart using following query. Observe that we used _startTime and _endTime. These 2 are parameters from TimeRange filter in ADX Dashboard with which we can filter the minimum and maximum time of our data.
+Try this! 
+Create a Timechart using following query. Observe that we used _startTime and _endTime. These 2 are parameters from TimeRange filter in ADX Dashboard with which we can filter the minimum and maximum time of our data.
 ```
 ingestionLogs
 | where Timestamp between (todatetime(_startTime) .. todatetime(_endTime))
