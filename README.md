@@ -105,7 +105,7 @@ Reference:
 
 ### Challenge 7: Going more advanced with KQL
 
-** Use ingestionLogs table for the following tasks.
+** Use ingestionLogs table for the all challenge 7 tasks**.
 
 #### Challenge 7, Task 1: Declaring variables and using 'let' statements 🎓
 
@@ -123,34 +123,18 @@ For example, you can use 2 **'let'** statements to create "LogType" and "TimeBuc
 And then craft a query that performs a count of "Warning" by 1 minute Timestamp buckets (bins).
 -  Remember to include a ";" at the end of your let statement.
 
-Example:
+Hint: Try to fill in the blanks
 ```
-let LogType='Warning';
-let TimeBucket=1m;
+let LogType= .....;
+let TimeBucket= .....;
 ingestionLogs
-| where Level==LogType
-| summarize count() by bin(Timestamp,TimeBucket)
+| where Level==....
+| summarize count() by bin(Timestamp,...)
 ```
 
 Reference:
 - [let](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/letstatement#examples)
 - [bin()](https://learn.microsoft.com/en-us/azure/data-explorer/kusto/query/binfunction)
-
-Now, let's see how we can use _let_ as a subquery. <br>
-You want to investigate if there were any exceptions thrown by the node(s) that ingested the top 3 largest files. <br>
-Write a query that retrieves the exception text.
-
-hint:
-```
-let NodesOfTop3Files =  
-logsRaw
-| where Component == "INGESTOR_EXECUTER"
-| extend fileSize=tolong(Properties.size)
-| top 3 by ***** 
-| project *****;
-logsRaw 
-| where Node in (NodesOfTop3Files)
-| where Message startswith "Exception"
 ```
 
 ---
@@ -234,6 +218,7 @@ Hint 3: Use 'make-series' operator <br>
 Example Output:
 ![Screen capture 1](/assets/images/Challenge7-Task4-Part2-Pic1.png)
 
+** Observing both the above graphs will reveal that , make-series has padded a missing time (12:30) with zero (Graph falls to 0 at this time) and summarize does not (Graph does not fall to 0 and does not reflect any data at this time).**
 
 **Why should you use make-series instead of the summarize operator?**
 
@@ -249,18 +234,18 @@ Reference:
 
 #### Challenge 7, Task 5: Anomaly detection 🎓
 Anomaly detection lets you find outliers/anomalies in the data. <br>
-Let's find out any file size anomalies by summarizing the sum of file sizes in 5-minute intervals, using the 'logsRaw' table, filtered by INGESTOR_EXECUTER _Component_ only <br>
+Let's find out any file size anomalies by summarizing the sum of file sizes in 5-minute intervals <br>
 Can you spot red dots indicating outliers/anomalies i.e.,spikes in file size on the chart?
 
-Hint: Use series_decompose_anomalies to render anomaly chart<br>
-Hint:
+Hint: Use series_decompose_anomalies to render anomaly chart <br>
+Hint: Fill in the blanks to complete the query <br>
 ```
-logsRaw 
-| where Component == "INGESTOR_EXECUTER"
-| extend fileSize=tolong(Properties.size)
-| make-series records_series=sum(fileSize) on Timestamp step 5min 
-| extend ActualUsage = ..............
-| render anomalychart with(anomalycolumns =ActualUsage, title="file size anomalies")
+let TimeBuckets = 5m;
+ingestionLogs 
+| extend Size = .....
+| make-series ...........
+| extend anomaly = series_decompose_anomalies(.....,1)
+| render........ with(anomalycolumns=anomaly, title='Ingestion Anomalies') 
 ```
 
 Example result:<br>
@@ -270,6 +255,7 @@ Reference:
 [ADX Anomaly Detection](https://docs.microsoft.com/en-us/azure/data-explorer/anomaly-detection#time-series-anomaly-detection)<br>
 [Series Decompose Anomalies](https://learn.microsoft.com/en-us/azure/data-explorer/kusto/query/series-decompose-anomaliesfunction)
 
+**Note:** The following explanation in this task is for your understanding and does not count for the challenge
 
 **How to display the anomalies in a tabular format?**<br>
 The _series_decompose_anomalies_ function returns the following respective series:
@@ -281,7 +267,7 @@ The _series_decompose_anomalies_ function returns the following respective serie
 To get a tabular format of the detected anomalies, you can use the _mv-expand_ operator to expand the multi-value dynamic array of the anomaly detection component (AnomalyFlags, AnomalyScore, PredictedUsage) into multiple match records, and then filter by positive and negative deviations from expected usage (where AnomalyFlags != 0). <br>
  Example:
 ```
-logsRaw 
+ingestionLogs
 | where Component == "INGESTOR_EXECUTER"
 | extend fileSize=tolong(Properties.size)
 | make-series ActualSize=sum(fileSize) on Timestamp step 5min // Creates the time series, listed by data type
