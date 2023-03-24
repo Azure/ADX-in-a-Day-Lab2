@@ -105,7 +105,7 @@ Reference:
 
 ### Challenge 7: Going more advanced with KQL
 
-** Use ingestionLogs table for the all challenge 7 tasks**.
+** Use ingestionLogs table for all the challenge 7 tasks**.
 
 #### Challenge 7, Task 1: Declaring variables and using 'let' statements 🎓
 
