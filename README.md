@@ -105,7 +105,7 @@ Reference:
 
 ### Challenge 7: Going more advanced with KQL
 
-** Use ingestionLogs table for all the challenge 7 tasks**.
+ **Use ingestionLogs table for all the challenge 7 tasks**.
 
 #### Challenge 7, Task 1: Declaring variables and using 'let' statements 🎓
 
@@ -135,7 +135,7 @@ ingestionLogs
 Reference:
 - [let](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/letstatement#examples)
 - [bin()](https://learn.microsoft.com/en-us/azure/data-explorer/kusto/query/binfunction)
-```
+
 
 ---
 #### Challenge 7, Task 2: Use the search operator 🎓
@@ -149,8 +149,9 @@ Reference:
 As part of an incident investigation, you need to look at the INGESTOR_GATEWAY records (Component == 'INGESTOR_GATEWAY'). <br>
 You need to use the _Message_ column, which contains the message of the trace, representing the information in a key/value form.  <br>
 An example of a typical message would be:
+
 ```
-$$IngestionCommand table=scaleEvents format=json
+ $$IngestionCommand table=scaleEvents format=json
 ```
 You want to analyze all the message strings, by extracting the _Message_ text into 2 calculated separate columns: table and format. 
 Let's extract that to discover the number of records per format (_summarize count() by format_). <br> 
