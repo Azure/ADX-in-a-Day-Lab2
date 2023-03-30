@@ -243,7 +243,7 @@ Hint: Fill in the blanks to complete the query <br>
 ```
 let TimeBuckets = 5m;
 ingestionLogs 
-| extend Size = .....
+| extend Size = tolong(Properties.size)
 | make-series ...........
 | extend anomaly = series_decompose_anomalies(.....,1)
 | render........ with(anomalycolumns=anomaly, title='Ingestion Anomalies') 
