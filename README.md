@@ -282,7 +282,7 @@ To get a tabular format of the detected anomalies, you can use the _mv-expand_ o
 ingestionLogs
 | where Component == "INGESTOR_EXECUTER"
 | extend fileSize=tolong(Properties.size)
-| make-series ActualSize=sum(fileSize) on Timestamp step 5min // Creates the time series, listed by data type
+| make-series ActualSize=avg(fileSize) on Timestamp step 1min // Creates the time series, listed by data type
 | extend(AnomalyFlags, AnomalyScore, PredictedSize) = series_decompose_anomalies(ActualSize, -1) // Scores and extracts anomalies based on the output of make-series 
 | mv-expand ActualSize to typeof(double), Timestamp to typeof(datetime), AnomalyFlags to typeof(double),AnomalyScore to typeof(double), PredictedSize to typeof(long) // Expands the array created by series_decompose_anomalies()
 | where AnomalyFlags != 0  // Returns all positive and negative deviations from expected usage
@@ -305,7 +305,7 @@ Using the Dashboard feature of Azure Data Explorer, build a dashboard using outp
 <img src="/assets/images/Challenge8-goto-dashboard.png" width="800">
 
 After you provide dashboard name and click "Next", click on "+ Add tile" next. You will be prompted to add a data source. Click on "+ Data source"
-<img src="/assets/images/Challenge8-goto-dashboard.png" width="800">
+<img src="/assets/images/Challenge8-dashboard-datasource.png" width="800">
 
 Use the cluster URI of your free cluster as the data source.
 <img src="/assets/images/free_cluster_uri.png" width="800">
@@ -323,7 +323,7 @@ ingestionLogs
 
 ---
 #### Challenge 8, Task 1 : Find the anomaly value 🎓
-Parameterize (add Timefilter) and render an Anomaly chart using the following Anomaly detection query. The chart should show values between 2014-03-08T07:00:00 and 2014-03-08T12:00:00.
+Parameterize (add Timefilter) and render an Anomaly chart using the following Anomaly detection query. The chart should show values between 2014-03-08T00:00:00 and 2014-03-08T03:00:00.
 **Question**: What is the anomaly value(y axis) at exactly 00:30 on x axis.
 
 ```
@@ -336,7 +336,7 @@ ingestionLogs
 ```
 ---
 #### Challenge 8, Task 2 : Find the warning percentage 🎓
-Parameterize (add Timefilter) and render a Piechart using the following query. The chart should show values between 2014-03-08T07:00:00 and 2014-03-08T12:00:00.
+Parameterize (add Timefilter) and render a Piechart using the following query. The chart should show values between 2014-03-08T00:00:00 and 2014-03-08T03:00:00.
 
 **Question**: What is the warning % on the piechart?
 
