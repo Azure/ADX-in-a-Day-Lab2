@@ -44,7 +44,7 @@ ADX cluster and database are Azure resources. A database is a sub-resource of th
 You can always use KQL commands to alter the policies of the entire Cluster/Database/tables. Table level policy takes precedence over database level which takes precedence over cluster level.
 
 ```
-.alter table ingestionLogs policy retention { "SoftDeletePeriod": "10.12:00:00", "Recoverability": "Enabled" }
+.alter table ingestionLogs policy retention ```{ "SoftDeletePeriod": "10:12:00:00", "Recoverability": "Enabled" }```
 ```
 
 **Question:** How many total hours is the retention policy of ingestionLogs table after running the above query?
@@ -53,7 +53,7 @@ You can always use KQL commands to alter the policies of the entire Cluster/Data
 
 ---
 
-### Challenge 6: Control commands
+### Challenge 6: Metadata objects handling using Control Commands
 
 #### Challenge 6, Task 1: .show/diagnostic logs/Insights
 Control commands are requests to the service to retrieve information that is not necessarily data in the database tables, or to modify the service state, etc. In addition, they can be used to manage Azure Data Explorer.
@@ -70,7 +70,7 @@ The first character of the KQL text determines if the request is a control comma
 
 As part of an incident investigation, you need to find out how many queries were executed in the past 3 hours.
 <br>
-Write a command to count the number of queries that you ran, in the past 3 hours.
+Write a command to count the number of queries that were run, in the past 3 hours.
 
 **Question:** Which column in .show queries has information related to user or app that has run the queries?
 
@@ -94,7 +94,7 @@ Reference:
 ---
 #### Challenge 6, Task 4: Use .show commands 🎓
 
-Write a command to count the number commands that you run (use the User column), in the past 4 hours.
+Write a command to show the details of commands that you ran, in the past 4 hours.
 
 **Question:** What is the "AuthorizationScheme" for commands issued by you?
 
@@ -108,7 +108,7 @@ Reference:
 
 Write a control command to show details on ingestionLogs tables in the database.
 
-**Question:** What is the "DataHotSpan" for ingestionLogs table? 
+**Question:** How many days is the "DataHotSpan" for ingestionLogs table? 
 
 Hint: Details about cache policy can be extracted from "CachingPolicy" column.  <br>
 
@@ -319,19 +319,19 @@ ingestionLogs
 ```
 - Use the above example query as reference to add Timestamp filter with _startTime and _endTime filter to queries in task 1 and task 2.
 
-- The following 2 tasks use the timefilter between 2014-03-08T00:00:00 and 2014-03-08T03:00:00
+- The following 2 tasks use the timefilter between 2014-03-08T00:00:00 and 2014-03-08T10:00:00
 
 ---
 #### Challenge 8, Task 1 : Find the anomaly value 🎓
-Parameterize (add Timefilter) and render an Anomaly chart using the following Anomaly detection query. The chart should show values between 2014-03-08T00:00:00 and 2014-03-08T03:00:00.
-**Question**: What is the anomaly value(y axis) at exactly 00:30 on x axis.
+Parameterize (add Timefilter) and render an Anomaly chart using the following Anomaly detection query. The chart should show values between 2014-03-08T00:00:00 and 2014-03-08T10:00:00.
+**Question**: What is the anomaly value(y axis) at exactly 04:28 on x axis.
 
 ```
-let TimeBuckets = 5m;
+let TimeBuckets = 1m;
 ingestionLogs 
 | <Add Timefilter parameters>
 | make-series MySeries=count() on Timestamp step TimeBuckets
-| extend anomaly = series_decompose_anomalies(MySeries,1)
+| extend anomaly = series_decompose_anomalies(MySeries)
 
 ```
 ---
