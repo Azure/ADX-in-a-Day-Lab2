@@ -1,3 +1,5 @@
+# ===> **ADX-in-a-Day Lab2 is undergoing maintainance and will be ready by Monday, 10 April 2023, 6PM IST**.  <===
+
 # Lab 2: Advanced KQL, Policies, and Visualization
 
 This Lab is organised into the following 4 challenges:
