@@ -4,7 +4,7 @@ This Lab is organised into the following 4 challenges:
 |Challenge | Description | Est. Time|
 |--|--|--|
 | [Challenge 5](https://github.com/Azure/ADX-in-a-Day-Lab2#challenge-5-how-long-will-my-data-be-kept---caching-and-retention-policies)| Caching and retention policies| 30 Min| 
-| [Challenge 6](https://github.com/Azure/ADX-in-a-Day-Lab2#challenge-6-control-commands)| Control commands| 30 Min|
+| [Challenge 6](https://github.com/Azure/ADX-in-a-Day-Lab2#challenge-6-metadata-objects-handling-using-control-commands)| Control commands| 30 Min|
 | [Challenge 7](https://github.com/Azure/ADX-in-a-Day-Lab2#challenge-7-going-more-advanced-with-kql)| Advanced KQL operators| 45 Min|
 | [Challenge 8](https://github.com/Azure/ADX-in-a-Day-Lab2#challenge-8-visualization)| Visualization| 45 Min |
 
