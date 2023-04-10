@@ -45,13 +45,17 @@ Database policies can be overridden per table using a KQL control command.
 ADX cluster and database are Azure resources. A database is a sub-resource of the cluster, so it can be edited from the portal. Tables are not considered an Azure resource, so they cannot be managed in the portal but via a KQL command.    
 You can always use KQL commands to alter the policies of the entire Cluster/Database/tables. Table level policy takes precedence over database level which takes precedence over cluster level.
 
-Alter the retention policy of the table ingestionLogs to 180 days.
+```
+.alter table ingestionLogs policy retention ```{ "SoftDeletePeriod": "10:12:00:00", "Recoverability": "Enabled" }```
+```
+
+**Question:** How many total hours is the retention policy of ingestionLogs table after running the above query?
 
 [.alter table retention policy command](https://learn.microsoft.com/en-us/azure/data-explorer/kusto/management/alter-table-retention-policy-command)
 
 ---
 
-### Challenge 6: Control commands
+### Challenge 6: Metadata objects handling using Control Commands
 
 #### Challenge 6, Task 1: .show/diagnostic logs/Insights
 Control commands are requests to the service to retrieve information that is not necessarily data in the database tables, or to modify the service state, etc. In addition, they can be used to manage Azure Data Explorer.
@@ -68,7 +72,11 @@ The first character of the KQL text determines if the request is a control comma
 
 As part of an incident investigation, you need to find out how many queries were executed in the past 3 hours.
 <br>
-Write a command to count the number of queries that you ran (use the _User_ column), in the past 3 hours.
+Write a command to count the number of queries that were run, in the past 3 hours.
+
+**Question:** Which column in .show queries has information related to user or app that has run the queries?
+
+Hint : The column shows email of users who ran the queries.
 
 Reference:
 [.show queries](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/management/queries)
@@ -76,8 +84,11 @@ Reference:
 ---
 #### Challenge 6, Task 3: Use .journal commands 🎓
 
-Write a command to show the details of the function that you created earlier. When did you create the function? <br>
-Hint: use the 'Event' and the 'EventTimestamp' columns.
+Write a command to show the details of the function that you created earlier? <br>
+
+**Question:** What is the 'Event' column value for records which shows the details of function creation?
+
+Hint: You can either create a new function and check the latest .show journal entry or look for record that was created as a part of Challenge 4, Task 1 
 
 Reference:
 [.show journal](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/management/journal)
@@ -85,23 +96,26 @@ Reference:
 ---
 #### Challenge 6, Task 4: Use .show commands 🎓
 
-Write a command to count the number commands that you run (use the User column), in the past 4 hours.
+Write a command to show the details of commands that you ran, in the past 4 hours.
+
+**Question:** What is the "AuthorizationScheme" for commands issued by you?
+
+Hint: Authorization details are available in "ClientRequestProperties" column in .show commands output
 
 Reference:
 [.show commands](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/management/commands)
 
-
 ---
 #### Challenge 6, Task 5: Table details and size 🎓
 
-Write a control command to show following details on all tables in the database.
-- Use calculated columns using 'extend' operator to show the [extent](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/management/extents-overview) size of the data, per table size in GB. <br>
+Write a control command to show details on ingestionLogs tables in the database.
 
-Hint: ADX provides function to format bytes into MB or GB or TB: format_bytes(*YourColumn*, 2) <br>
+**Question:** How many days is the "DataHotSpan" for ingestionLogs table? 
+
+Hint: Details about cache policy can be extracted from "CachingPolicy" column.  <br>
 
 Reference:
 - [.show table details](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/management/show-table-details-command)
-- [format_bytes()](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/format-bytesfunction)
 
 ---
 
@@ -134,6 +148,8 @@ ingestionLogs
 | summarize count() by bin(Timestamp,...)
 ```
 
+**Question:** What is the count_ at 2014-03-08 00:00:00.0000 ?
+
 Reference:
 - [let](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/letstatement#examples)
 - [bin()](https://learn.microsoft.com/en-us/azure/data-explorer/kusto/query/binfunction)
@@ -141,7 +157,9 @@ Reference:
 
 ---
 #### Challenge 7, Task 2: Use the search operator 🎓
-You received an alert early in the morning regarding multiple Timeouts in your system. You want to quickly search the traces without using specific columns or table names. Write a query to "search" for "Exception=System.Timeout" string in entire database.
+You received an alert early in the morning regarding multiple Timeouts in your system. You want to quickly search the traces without using specific columns or table names. 
+
+**Question:** Write a query to "search" for "Exception=System.Timeout" string in entire database.
 
 Reference:
 [search operator](https://learn.microsoft.com/en-us/azure/data-explorer/kusto/query/searchoperator?pivots=azuredataexplorer)
@@ -156,8 +174,11 @@ An example of a typical message would be:
  $$IngestionCommand table=scaleEvents format=json
 ```
 You want to analyze all the message strings, by extracting the _Message_ text into 2 calculated separate columns: table and format. 
-Let's extract that to discover the number of records per format (_summarize count() by format_). <br> 
-Hint: Don't think about writing a REGEX. ADX can parse key-value pairs, JSON, XML, URLs, and IPv4s. 
+Let's extract that to discover the number of records per format. <br> 
+
+**Question:** What is the count of json format? 
+
+Hint: Use summarize to count() by format
 
 Reference:
 [parse-kv](https://learn.microsoft.com/en-us/azure/data-explorer/kusto/query/parse-kv-operator)
@@ -186,7 +207,7 @@ Time series decomposition involves thinking of a series as a combination of 4 co
 - noise (the residual random variation in the series). 
 We can use built in functions, that uses time series decomposition to forecast future metric values and/or detect anomalous values.
 
-**Why should you use series instead of the summarize operator?**
+**Why should you use make-series instead of the summarize operator?**
 The summarize operator does not add "null bins" — rows for time bin values for which there's no corresponding row in the table. It's a good idea to "pad" the table with those bins. Advanced built in ML capabilities like anomaly detection need the data points to be **consistently measured at equally spaced intervals**. <br>
 The _make-series_ operator can create such a “complete” series.
 
@@ -194,34 +215,23 @@ The _make-series_ operator can create such a “complete” series.
 
 #### Challenge 7, Task 4: Nulls are important in timeseries analysis (Compare summarize and make-series)
 
-In this task, you are going to compare the output of 2 different operators (summarize & make-series) within KQL for the same query. This task is divided into 2 parts. You will compare the outputs of these 2 parts.
+In this task, calculate the average size of data ingested per 30 min by the node 'Engine000000000378'. Use Component as 'INGESTOR_EXECUTER'. File size is available in the 'Properties' column. Render it as a timechart.
 
-Part 1: Calculate the average size of data ingested per 30 min by the node 'Engine000000000378'. Use Component as 'INGESTOR_EXECUTER'. File size is available in the 'Properties' column. Render the output as a timechart.
+Hint : complete the following query
+```
+let TimeBuckets = ....;
+ingestionLogs 
+| where Component == "INGESTOR_EXECUTER" and Node == "Engine000000000378"
+| extend Size = ....
+| make-series MySeries=round(avg(Size),2) on Timestamp step TimeBuckets by Level
+| render ....
+```
 
-Hint 1: Use 'extend' operator to create a calculated/derived column <br>
-Hint 2: Think about the datatype of the calculated column. Use 'tolong()'.<br>
-Hint 3: Use bin() function to create time buckets of the specified duration<br>
-Hint 4: Use 'summarize' operator to do the calculation
-
-Example Output:
-![Screen capture 1](/assets/images/Challenge7-Task4-Part1-Pic1.png)
-
-Reference:
-- [summarize operator](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/summarizeoperator)
-- [extend operator](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/extendoperator)
-- [bin()](https://learn.microsoft.com/en-us/azure/data-explorer/kusto/query/binfunction)
-- [tolong()](https://learn.microsoft.com/en-us/azure/data-explorer/kusto/query/tolongfunction)
-
-Part 2: Calculate the average size of data ingested per 30 min by the node 'Engine000000000378'. Use Component as 'INGESTOR_EXECUTER'. File size is available in the 'Properties' column. Render it as a timechart.
-
-Hint 1: Use 'extend' operator to create a calculated/derived column<br>
-Hint 2: Think about the datatype of the calculated column. Use 'tolong()'.<br>
-Hint 3: Use 'make-series' operator <br>
+**Question:** What is the file size  value (y axis) at 2014-03-08 02:30:00.000 ?
 
 Example Output:
+
 ![Screen capture 1](/assets/images/Challenge7-Task4-Part2-Pic1.png)
-
-** Observing both the above graphs will reveal that , make-series has padded a missing time (12:30) with zero (Graph falls to 0 at this time) and summarize does not (Graph does not fall to 0 and does not reflect any data at this time).**
 
 **Why should you use make-series instead of the summarize operator?**
 
@@ -237,19 +247,20 @@ Reference:
 
 #### Challenge 7, Task 5: Anomaly detection 🎓
 Anomaly detection lets you find outliers/anomalies in the data. <br>
-Let's find out any file size anomalies by summarizing the sum of file sizes in 5-minute intervals <br>
+Let's find out any file size anomalies by summarizing the average of file sizes in 5-minute intervals <br>
 Can you spot red dots indicating outliers/anomalies i.e.,spikes in file size on the chart?
 
 Hint: Use series_decompose_anomalies to render anomaly chart <br>
 Hint: Fill in the blanks to complete the query <br>
 ```
-let TimeBuckets = 5m;
-ingestionLogs 
+let TimeBuckets = 1m;
+ingestionLogs
 | extend Size = tolong(Properties.size)
-| make-series ...........
-| extend anomaly = series_decompose_anomalies(.....,1)
-| render........ with(anomalycolumns=anomaly, title='Ingestion Anomalies') 
+| make-series ActualSize=round(avg(Size),2) on .... step ....
+| extend anomaly = series_decompose_anomalies(....)
+| render anomalychart with(anomalycolumns=...., title='Ingestion Anomalies')
 ```
+**Question:** What is the anomaly value (y axis) at 2014-03-08 04:24:00:000?
 
 Example result:<br>
 <img src="/assets/images/anomalies.png" width="1100">
@@ -273,7 +284,7 @@ To get a tabular format of the detected anomalies, you can use the _mv-expand_ o
 ingestionLogs
 | where Component == "INGESTOR_EXECUTER"
 | extend fileSize=tolong(Properties.size)
-| make-series ActualSize=sum(fileSize) on Timestamp step 5min // Creates the time series, listed by data type
+| make-series ActualSize=avg(fileSize) on Timestamp step 1min // Creates the time series, listed by data type
 | extend(AnomalyFlags, AnomalyScore, PredictedSize) = series_decompose_anomalies(ActualSize, -1) // Scores and extracts anomalies based on the output of make-series 
 | mv-expand ActualSize to typeof(double), Timestamp to typeof(datetime), AnomalyFlags to typeof(double),AnomalyScore to typeof(double), PredictedSize to typeof(long) // Expands the array created by series_decompose_anomalies()
 | where AnomalyFlags != 0  // Returns all positive and negative deviations from expected usage
@@ -293,7 +304,12 @@ Looking at the query results, you can see that the query: <br>
 
 Using the Dashboard feature of Azure Data Explorer, build a dashboard using outputs of below 3 queries (on ingestionLogs table).
 
-When creating a dashboard in ADX, use the cluster URI of your free cluster as the data source.
+<img src="/assets/images/Challenge8-goto-dashboard.png" width="800">
+
+After you provide dashboard name and click "Next", click on "+ Add tile" next. You will be prompted to add a data source. Click on "+ Data source"
+<img src="/assets/images/Challenge8-dashboard-datasource.png" width="800">
+
+Use the cluster URI of your free cluster as the data source.
 <img src="/assets/images/free_cluster_uri.png" width="800">
 
 Try this! 
@@ -305,28 +321,30 @@ ingestionLogs
 ```
 - Use the above example query as reference to add Timestamp filter with _startTime and _endTime filter to queries in task 1 and task 2.
 
-- The following 2 tasks use the timefilter between 2014-03-08T07:00:00 and 2014-03-08T12:00:00
+- The following 2 tasks use the timefilter between 2014-03-08T00:00:00 and 2014-03-08T10:00:00
 
 ---
 #### Challenge 8, Task 1 : Find the anomaly value 🎓
-Parameterize (add Timefilter) and render an Anomaly chart using the following Anomaly detection query. The chart should show values between 2014-03-08T07:00:00 and 2014-03-08T12:00:00.
-**Question**: What is the anomaly value(y axis) at exactly 10:49 on x axis.
+Parameterize (add Timefilter) and render an Anomaly chart using the following Anomaly detection query. The chart should show values between 2014-03-08T00:00:00 and 2014-03-08T10:00:00.
+**Question**: What is the anomaly value(y axis) at exactly 04:28 on x axis.
 
 ```
 let TimeBuckets = 1m;
 ingestionLogs 
-| where Level == "Information"
-| make-series MySeries=count() on Timestamp step TimeBuckets by Level
+| <Add Timefilter parameters>
+| make-series MySeries=count() on Timestamp step TimeBuckets
 | extend anomaly = series_decompose_anomalies(MySeries)
+
 ```
 ---
 #### Challenge 8, Task 2 : Find the warning percentage 🎓
-Parameterized (add Timefilter) and render a Piechart using the following query. The chart should show values between 2014-03-08T07:00:00 and 2014-03-08T12:00:00.
+Parameterize (add Timefilter) and render a Piechart using the following query. The chart should show values between 2014-03-08T00:00:00 and 2014-03-08T03:00:00.
 
 **Question**: What is the warning % on the piechart?
 
 ```
 ingestionLogs
+| <Add Timefilter parameters>
 | summarize count() by Level
 ```
 
