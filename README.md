@@ -245,7 +245,7 @@ Reference:
 
 #### Challenge 7, Task 5: Anomaly detection 🎓
 Anomaly detection lets you find outliers/anomalies in the data. <br>
-Let's find out any file size anomalies by summarizing the average of file sizes in 5-minute intervals <br>
+Let's find out any file size anomalies by summarizing the average of file sizes in 1-minute intervals <br>
 Can you spot red dots indicating outliers/anomalies i.e.,spikes in file size on the chart?
 
 Hint: Use series_decompose_anomalies to render anomaly chart <br>
