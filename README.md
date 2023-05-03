@@ -10,8 +10,9 @@ This Lab is organised into the following 4 challenges:
 
 
 ---
-In order to receive the "ADX In a Day" digital badge, you will need to complete the challenges marked with 🎓. **Please submit the results of these challenges in the following link**: [Answer sheet - ADX in a Day Lab 2](https://forms.office.com/r/J38XTAx09Q)
-
+Earn a digital badge! In order to receive the "ADX-In-A-Day" digital badge, you will need to complete the tasks marked with 🎓. **Please submit the results of these tasks in the following links**: 
+1. [Answer sheet - ADX in a Day Lab 1](https://forms.office.com/r/9GwkwHs9hv)
+2. [Answer sheet - ADX in a Day Lab 2](https://forms.office.com/r/J38XTAx09Q)
 #### Please allow us 5 working days to issue the badge
 
 <p align="center"><img src="/assets/images/badge.png" width="200"></p>
@@ -386,7 +387,9 @@ Reference:
 ---
 
 🎉 Congrats! You've completed the ADX in a Day Lab 2 challenges! <br>
-To earn the digital badge, submit the results of the challenges marked with 🎓: [Answer sheet - ADX in a Day Lab 2](https://forms.office.com/r/J38XTAx09Q)
+To earn the digital badge, submit the results of the challenges marked with 🎓: 
+1. [Answer sheet - ADX in a Day Lab 1](https://forms.office.com/r/9GwkwHs9hv)
+2. [Answer sheet - ADX in a Day Lab 2](https://forms.office.com/r/J38XTAx09Q)
 
 <details>
 <summary><b>Contributing</b></summary><br>
