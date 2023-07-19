@@ -10,7 +10,7 @@ This Lab is organised into the following 4 challenges:
 
 
 ---
-In order to receive the "ADX In a Day" digital badge, you will need to complete the challenges marked with 🎓. **Please submit the results of these challenges in the following link**: [Answer sheet - ADX in a Day Lab 2](https://forms.office.com/r/8z4DQ04eXH)
+In order to receive the "ADX In a Day" digital badge, you will need to complete the challenges marked with ✅. **Please submit the results of these challenges in the following link**: [Answer sheet - ADX in a Day Lab 2](https://forms.office.com/r/8z4DQ04eXH)
 
 #### Please allow us 5 working days to issue the badge
 
@@ -37,7 +37,7 @@ Therefore, more readily available for querying. The availability of data in the 
 All the data is always persisted in the cold tier, for the duration defined in the retention policy. Any data whose age falls within the hot cache policy will also be stored in the hot cache. If you query data from cold cache, it’s recommended to target a small specific range in time (“point in time”) for the queries to be efficient.
 
 ---
-#### Challenge 5, Task 1: Change the retention policy via commands 🎓
+#### Challenge 5, Task 1: Change the retention policy via commands ✅
 
 Database policies can be overridden per table using a KQL control command.
 ADX cluster and database are Azure resources. A database is a sub-resource of the cluster, so it can be edited from the portal. Tables are not considered an Azure resource, so they cannot be managed in the portal but via a KQL command.    
@@ -66,7 +66,7 @@ The first character of the KQL text determines if the request is a control comma
 - The '.show tables details' command returns  a set that contains the specified table or all tables in the database with a detailed summary of each table's properties.
 
 ---
-#### Challenge 6, Task 2: Use .show queries 🎓
+#### Challenge 6, Task 2: Use .show queries ✅
 
 As part of an incident investigation, you need to find out how many queries were executed in the past 3 hours.
 <br>
@@ -80,7 +80,7 @@ Reference:
 [.show queries](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/management/queries)
 
 ---
-#### Challenge 6, Task 3: Use .journal commands 🎓
+#### Challenge 6, Task 3: Use .journal commands ✅
 
 Write a command to show the details of the function that you created earlier? <br>
 
@@ -92,7 +92,7 @@ Reference:
 [.show journal](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/management/journal)
 
 ---
-#### Challenge 6, Task 4: Use .show commands 🎓
+#### Challenge 6, Task 4: Use .show commands ✅
 
 Write a command to show the details of commands that you ran, in the past 4 hours.
 
@@ -104,7 +104,7 @@ Reference:
 [.show commands](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/management/commands)
 
 ---
-#### Challenge 6, Task 5: Table details and size 🎓
+#### Challenge 6, Task 5: Table details and size ✅
 
 Write a control command to show details on ingestionLogs tables in the database.
 
@@ -121,7 +121,7 @@ Reference:
 
  **Use ingestionLogs table for all the challenge 7 tasks**.
 
-#### Challenge 7, Task 1: Declaring variables and using 'let' statements 🎓
+#### Challenge 7, Task 1: Declaring variables and using 'let' statements ✅
 
 You can use the  **'let'** statement to set a variable name equal to an expression or a function, or to create views (virtual, temporary, tables based on the result-set of another KQL query). <br>
 
@@ -154,7 +154,7 @@ Reference:
 
 
 ---
-#### Challenge 7, Task 2: Use the search operator 🎓
+#### Challenge 7, Task 2: Use the search operator ✅
 You received an alert early in the morning regarding multiple Timeouts in your system. You want to quickly search the traces without using specific columns or table names. 
 
 **Question:** Write a query to "search" for "Exception=System.Timeout" string in entire database.
@@ -163,7 +163,7 @@ Reference:
 [search operator](https://learn.microsoft.com/en-us/azure/data-explorer/kusto/query/searchoperator?pivots=azuredataexplorer)
  
 ---
-#### Challenge 7, Task 3: Parse Key-Value pairs strings into separate columns 🎓
+#### Challenge 7, Task 3: Parse Key-Value pairs strings into separate columns ✅
 As part of an incident investigation, you need to look at the INGESTOR_GATEWAY records (Component == 'INGESTOR_GATEWAY'). <br>
 You need to use the _Message_ column, which contains the message of the trace, representing the information in a key/value form.  <br>
 An example of a typical message would be:
@@ -243,7 +243,7 @@ Reference:
 
 ---
 
-#### Challenge 7, Task 5: Anomaly detection 🎓
+#### Challenge 7, Task 5: Anomaly detection ✅
 Anomaly detection lets you find outliers/anomalies in the data. <br>
 Let's find out any file size anomalies by summarizing the average of file sizes in 1-minute intervals <br>
 Can you spot red dots indicating outliers/anomalies i.e.,spikes in file size on the chart?
@@ -322,7 +322,7 @@ ingestionLogs
 - The following 2 tasks use the timefilter between 2014-03-08T00:00:00 and 2014-03-08T10:00:00
 
 ---
-#### Challenge 8, Task 1 : Find the anomaly value 🎓
+#### Challenge 8, Task 1 : Find the anomaly value ✅
 Parameterize (add Timefilter) and render an Anomaly chart using the following Anomaly detection query. The chart should show values between 2014-03-08T00:00:00 and 2014-03-08T10:00:00.
 **Question**: What is the anomaly value(y axis) at exactly 04:28 on x axis.
 
@@ -335,7 +335,7 @@ ingestionLogs
 
 ```
 ---
-#### Challenge 8, Task 2 : Find the warning percentage 🎓
+#### Challenge 8, Task 2 : Find the warning percentage ✅
 Parameterize (add Timefilter) and render a Piechart using the following query. The chart should show values between 2014-03-08T00:00:00 and 2014-03-08T03:00:00.
 
 **Question**: What is the warning % on the piechart?
@@ -386,7 +386,7 @@ Reference:
 ---
 
 🎉 Congrats! You've completed the ADX in a Day Lab 2 challenges! <br>
-To earn the digital badge, submit the results of the challenges marked with 🎓: [Answer sheet - ADX in a Day Lab 2](https://forms.office.com/r/8z4DQ04eXH)
+To earn the digital badge, submit the results of the challenges marked with ✅: [Answer sheet - ADX in a Day Lab 2](https://forms.office.com/r/8z4DQ04eXH)
 
 <details>
 <summary><b>Contributing</b></summary><br>
