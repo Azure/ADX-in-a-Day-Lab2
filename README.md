@@ -176,7 +176,7 @@ An example of a typical message would be:
 You want to analyze all the message strings, by extracting the _Message_ text into 2 calculated separate columns: table and format. 
 Let's extract that to discover the number of records per format. <br> 
 
-**Question:** What is the count of json format? 
+**Question:** What is the count of json format in the `logsRaw` table? 
 
 Hint: Use summarize to count() by format
 
