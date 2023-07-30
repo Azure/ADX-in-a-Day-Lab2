@@ -3,13 +3,11 @@
 This Lab is organised into the following 4 challenges:
 |Challenge | Description | Est. Time|
 |--|--|--|
-| [Challenge 5](https://github.com/Azure/ADX-in-a-Day-Lab2#challenge-5-how-long-will-my-data-be-kept---caching-and-retention-policies)| Caching and retention policies| 30 Min| 
-| [Challenge 6](https://github.com/Azure/ADX-in-a-Day-Lab2#challenge-6-metadata-objects-handling-using-control-commands)| Control commands| 30 Min|
-| [Challenge 7](https://github.com/Azure/ADX-in-a-Day-Lab2#challenge-7-going-more-advanced-with-kql)| Advanced KQL operators| 45 Min|
-| [Challenge 8](https://github.com/Azure/ADX-in-a-Day-Lab2#challenge-8-visualization)| Visualization| 45 Min |
+| [Challenge 5](#challenge-5-how-long-will-my-data-be-kept---caching-and-retention-policies)| Caching and retention policies| 30 Min| 
+| [Challenge 6](#challenge-6-metadata-objects-handling-using-control-commands)| Control commands| 30 Min|
+| [Challenge 7](#challenge-7-going-more-advanced-with-kql)| Advanced KQL operators| 45 Min|
+| [Challenge 8](#challenge-8-task-1--find-the-anomaly-value-)| Visualization| 45 Min |
 
-
----
 Earn a digital badge! In order to receive the "ADX-In-A-Day" digital badge, you will need to complete the tasks marked with ✅ in [Lab 1](https://github.com/Azure/ADX-in-a-Day-Lab1) & Lab 2. Submit your answers for [Lab 1](https://forms.office.com/r/qZ0yghDwyb) and Lab 2 quizzes in order to receive the "ADX in a Day" digital badge. You may edit your answers after or try again. 
 
 **For Lab 2, please submit the results for the tasks marked with ✅ in the following link**: [Answer sheet - ADX in a Day Lab 2](https://forms.office.com/r/8z4DQ04eXH)
