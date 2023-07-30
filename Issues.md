@@ -1,0 +1,2 @@
+- Expected Learning Outcome is missing
+- 7.3 \$\$IngestionCommand table=scaleEvents format=json wird falsch dargestellt weil Markdown meint es wäre eine Formel
