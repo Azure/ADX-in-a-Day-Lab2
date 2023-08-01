@@ -22,7 +22,7 @@ In order to receive the "ADX-In-A-Day" digital badge, you will need to complete 
 |:---------------------------|
 | **Please allow us 5 working days to issue the badge**|
 
-![Screen capture 1](/assets/images/badge.png)
+![ADX in a day](/assets/images/badge.png "ADX in a day")
 
 ## Challenge 5: How long will my data be kept? - Caching and Retention Policies
 
@@ -59,7 +59,8 @@ You can always use KQL commands to alter the policies of the entire Cluster/Data
 ```
 { 
     "SoftDeletePeriod": "10:12:00:00",
-    "Recoverability": "Enabled" }
+    "Recoverability": "Enabled" 
+}
 ```
 ````
 
@@ -313,7 +314,7 @@ ingestionLogs
 
 **Example Output:**
 
-![Screen capture 1](/assets/images/Challenge7-Task4-Part2-Pic1.png)
+![Example Output for Question 7.4](/assets/images/Challenge7-Task4-Part2-Pic1.png "Example Output for Question 7.4")
 
 **Why should you use make-series instead of the summarize operator?**
 
@@ -354,7 +355,7 @@ ingestionLogs
 
 **Example result:**
 
-![Screen capture 1](/assets/images/anomalies.png)
+![Example Result for Question 7.5](/assets/images/anomalies.png "Example Result for Question 7.5")
 
 **References:**
 
@@ -389,7 +390,7 @@ ingestionLogs
 | sort by abs(AnomalyScore) desc // Sorts results by anomaly score in descending ordering
 ```
 
-![Screen capture 1](/assets/images/anomalies_table.png)
+![Logs ordered by absolute Anomaly Score](/assets/images/anomalies_table.png "Logs ordered by absolute Anomaly Score")
 
 Looking at the query results, you can see that the query:
 
@@ -402,15 +403,15 @@ Looking at the query results, you can see that the query:
 
 Using the Dashboard feature of Azure Data Explorer, build a dashboard using outputs of below 3 queries (on ingestionLogs table).
 
-![Screen capture 1](/assets/images/Challenge8-goto-dashboard.png)
+![Create a new dashboard](/assets/images/Challenge8-goto-dashboard.png "Create a new dashboard")
 
 After you provide dashboard name and click "Next", click on "+ Add tile" next. You will be prompted to add a data source. Click on "+ Data source"
 
-![Screen capture 1](/assets/images/Challenge8-dashboard-datasource.png)
+![Define Dashboard Datasource](/assets/images/Challenge8-dashboard-datasource.png "Define Dashboard Datasource")
 
 Use the cluster URI of your free cluster as the data source.
 
-![Screen capture 1](/assets/images/free_cluster_uri.png)
+![URI of the free cluster](/assets/images/free_cluster_uri.png "URI of the free cluster")
 
 **Try this!**
 
@@ -466,7 +467,7 @@ You can directly add a query from query window to an existing dashboard.
 |:---------------------------|
 |In the query window, explore the **Share** menu.|
   
-  ![Screen capture 1](/assets/images/Challenge8-Task1-Pic1.png)
+  ![Share menu in query window](/assets/images/Challenge8-Task1-Pic1.png "Share menu in query window")
 
 **References:**
 
@@ -477,7 +478,7 @@ You can directly add a query from query window to an existing dashboard.
 |:---------------------------|
 |Below is just an example dashboard.|
 
-  ![Screen capture 1](/assets/images/Challenge8-Task1-dashboard-v2.png)
+  ![Example Dashboard](/assets/images/Challenge8-Task1-dashboard-v2.png "Example Dashboard")
 
 **Up for more challenges?**
 
@@ -498,12 +499,12 @@ Learn and get hands on experience with a full blown ADX cluster and advanced ADX
 
 - [Azure Data Explorer Microhack](https://github.com/Azure/azure-kusto-microhack)
 
- ![Screen capture 1](/assets/images/microhack_badge.png)
+ ![ADX Microhack badge](/assets/images/microhack_badge.png "ADX Microhack badge")
 
 - Become a detective and solve some puzzles using Kusto Query Langugage! You can reuse the same free cluster that you have used to complete ADX-in-a-Day challenges.
 [Kusto Detective Agency](https://detective.kusto.io)
 
- ![Screen capture 1](/assets/images/kda_badge.png)
+ ![Kusto Detective Agency Badge](/assets/images/kda_badge.png "Kusto Detective Agency Badge")
 
 🎉 Congrats! You've completed the ADX in a Day Lab 2 challenges!
 
