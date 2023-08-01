@@ -59,7 +59,8 @@ You can always use KQL commands to alter the policies of the entire Cluster/Data
 ```
 { 
     "SoftDeletePeriod": "10:12:00:00",
-    "Recoverability": "Enabled" }
+    "Recoverability": "Enabled"
+}
 ```
 ````
 
