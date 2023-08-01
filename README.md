@@ -334,13 +334,10 @@ Let's find out any file size anomalies by summarizing the average of file sizes 
 
 Can you spot red dots indicating outliers/anomalies i.e.,spikes in file size on the chart?
 
-| :triangular_flag_on_post: **Hint**    |
+| :triangular_flag_on_post: **Hints**    |
 |:---------------------------|
 |Use `series_decompose_anomalies` to render anomaly chart. |
-
-| :triangular_flag_on_post: **Hint**    |
-|:---------------------------|
-|Fill in the blanks to complete the query. |
+|Fill in the blanks to complete the query.
 
 ```kql
 let TimeBuckets = 1m;
