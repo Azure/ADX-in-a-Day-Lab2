@@ -448,7 +448,7 @@ ingestionLogs
 
 ### Challenge 8, Task 2 : Find the warning percentage ✅
 
-Parameterize (add Timefilter) and render a Piechart using the following query. The chart should show values between `2014-03-08T00:00:00` and `2014-03-08T03:00:00`.
+Parameterize (add Timefilter) and render a Piechart using the following query. The chart should show values between `2014-03-08T00:00:00` and `2014-03-08T10:00:00`.
 
 | :question: **Question 8.2**    |
 |:---------------------------|
