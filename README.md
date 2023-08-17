@@ -16,7 +16,7 @@ In order to receive the "ADX-In-A-Day" digital badge, you will need to complete 
 
 | :information_source: **Note**    |
 |:---------------------------|
-|**For Lab 2, please submit the results for the tasks marked with ✅ in the following link**: [Answer sheet - ADX in a Day Lab 2](https://forms.office.com/r/8z4DQ04eXH)|
+|**For Lab 2, please submit the results for the tasks marked with ✅ in the following link**: [Quiz ADX in a Day Lab 2](https://forms.office.com/r/8z4DQ04eXH) |
 
 | :information_source: **Note**    |
 |:---------------------------|
