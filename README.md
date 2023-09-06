@@ -173,7 +173,7 @@ Write a control command to show details on ingestionLogs tables in the database.
 - [**Task 1:** Declaring variables and using 'let' statements](#challenge-7-task-1-declaring-variables-and-using-let-statements-):white_check_mark:
 - [**Task 2:** Use the search operator](#challenge-7-task-2-use-the-search-operator-):white_check_mark:
 - [**Task 3:** Parse Key-Value pairs strings into separate columns](#challenge-7-task-3-parse-key-value-pairs-strings-into-separate-columns-):white_check_mark:
-- [**Task 4:** Nulls are important in timeseries analysis (Compare summarize and make-series)](#challenge-7-task-4-nulls-are-important-in-timeseries-analysis-compare-summarize-and-make-series-):white_check_mark:
+- [**Task 4:** Nulls are important in timeseries analysis (Compare summarize and make-series)](#challenge-7-task-4-nulls-are-important-in-timeseries-analysis-compare-summarize-and-make-series-)
 - [**Task 5:** Anomaly detection](#challenge-7-task-5-anomaly-detection-):white_check_mark:
 
 ### Challenge 7, Task 1: Declaring variables and using 'let' statements ✅
@@ -291,7 +291,7 @@ The `make-series` operator can create such a “complete” series.
 
 ---
 
-### Challenge 7, Task 4: Nulls are important in timeseries analysis (Compare summarize and make-series) :white_check_mark:
+### Challenge 7, Task 4: Nulls are important in timeseries analysis (Compare summarize and make-series) 
 
 In this task, calculate the average size of data ingested per 30 min by the node 'Engine000000000378'. Use Component as 'INGESTOR_EXECUTER'. File size is available in the 'Properties' column. Render it as a timechart.
 
